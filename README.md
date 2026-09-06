@@ -4,6 +4,8 @@ An autonomous decision-support system that investigates production incidents in 
 
 > **Decision support, not auto-remediation.** The platform recommends actions backed by empirical citations. It never executes fixes itself.
 
+🌐 **Live Production App**: [https://agenti-sre.vercel.app](https://agenti-sre.vercel.app)
+
 ---
 
 ## Table of Contents
@@ -155,7 +157,10 @@ FastAPI application (`api.py`):
 
 ## Deployment
 
-Deployed as a Vercel serverless function via `vercel.json`:
+Deployed live on Vercel as a serverless Python application:
+- **Live Console URL**: [https://agenti-sre.vercel.app](https://agenti-sre.vercel.app)
+
+Vercel configuration (`vercel.json`):
 
 ```json
 {
