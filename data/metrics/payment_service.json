@@ -1,0 +1,9 @@
+{
+  "service": "payment_service",
+  "error_rate": 0.0,
+  "latency_ms": 45.0,
+  "db_connections_active": 3,
+  "memory_usage_mb": 256.0,
+  "dependency_latency_ms": 20.0,
+  "updated_at": "2026-09-05T14:03:28.337078Z"
+}

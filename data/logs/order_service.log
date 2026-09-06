@@ -1,0 +1,12 @@
+{"timestamp": "2026-09-05T14:03:27.810664Z", "service": "order_service", "level": "WARNING", "message": "Order service fault mode updated", "fault_mode": "db_pool_exhaustion"}
+{"timestamp": "2026-09-05T14:03:27.810917Z", "service": "order_service", "level": "INFO", "message": "Received order creation request", "user_id": "usr_100", "item_id": "item_1", "amount": 50.0}
+{"timestamp": "2026-09-05T14:03:27.810997Z", "service": "order_service", "level": "ERROR", "message": "Order creation failed due to payment error", "user_id": "usr_100", "item_id": "item_1", "error": "DB pool exhausted"}
+{"timestamp": "2026-09-05T14:03:27.915864Z", "service": "order_service", "level": "INFO", "message": "Received order creation request", "user_id": "usr_101", "item_id": "item_2", "amount": 60.0}
+{"timestamp": "2026-09-05T14:03:27.916558Z", "service": "order_service", "level": "ERROR", "message": "Order creation failed due to payment error", "user_id": "usr_101", "item_id": "item_2", "error": "DB pool exhausted"}
+{"timestamp": "2026-09-05T14:03:28.021136Z", "service": "order_service", "level": "INFO", "message": "Received order creation request", "user_id": "usr_102", "item_id": "item_3", "amount": 70.0}
+{"timestamp": "2026-09-05T14:03:28.021728Z", "service": "order_service", "level": "ERROR", "message": "Order creation failed due to payment error", "user_id": "usr_102", "item_id": "item_3", "error": "DB pool exhausted"}
+{"timestamp": "2026-09-05T14:03:28.126878Z", "service": "order_service", "level": "INFO", "message": "Received order creation request", "user_id": "usr_103", "item_id": "item_4", "amount": 80.0}
+{"timestamp": "2026-09-05T14:03:28.128049Z", "service": "order_service", "level": "ERROR", "message": "Order creation failed due to payment error", "user_id": "usr_103", "item_id": "item_4", "error": "DB pool exhausted"}
+{"timestamp": "2026-09-05T14:03:28.229547Z", "service": "order_service", "level": "INFO", "message": "Received order creation request", "user_id": "usr_104", "item_id": "item_5", "amount": 90.0}
+{"timestamp": "2026-09-05T14:03:28.230802Z", "service": "order_service", "level": "ERROR", "message": "Order creation failed due to payment error", "user_id": "usr_104", "item_id": "item_5", "error": "DB pool exhausted"}
+{"timestamp": "2026-09-05T14:03:28.336078Z", "service": "order_service", "level": "WARNING", "message": "Order service fault mode updated", "fault_mode": null}

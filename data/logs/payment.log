@@ -1,0 +1,14 @@
+{"timestamp": "2026-09-01T11:30:16.194369Z", "service": "payment", "level": "INFO", "message": "Starting payment processing", "user_id": "user1", "amount": 50.0, "currency": "USD"}
+{"timestamp": "2026-09-01T11:30:16.194467Z", "service": "payment", "level": "INFO", "message": "Payment processed successfully", "user_id": "user1", "amount": 50.0, "currency": "USD"}
+{"timestamp": "2026-09-02T08:31:42.907329Z", "service": "payment", "level": "INFO", "message": "Starting payment processing", "user_id": "user_0", "amount": 25.0, "currency": "USD"}
+{"timestamp": "2026-09-02T08:31:42.907444Z", "service": "payment", "level": "INFO", "message": "Payment processed successfully", "user_id": "user_0", "amount": 25.0, "currency": "USD"}
+{"timestamp": "2026-09-02T08:31:43.012805Z", "service": "payment", "level": "INFO", "message": "Starting payment processing", "user_id": "user_1", "amount": 26.0, "currency": "USD"}
+{"timestamp": "2026-09-02T08:31:43.012857Z", "service": "payment", "level": "INFO", "message": "Payment processed successfully", "user_id": "user_1", "amount": 26.0, "currency": "USD"}
+{"timestamp": "2026-09-02T08:31:43.116802Z", "service": "payment", "level": "INFO", "message": "Starting payment processing", "user_id": "user_2", "amount": 27.0, "currency": "USD"}
+{"timestamp": "2026-09-02T08:31:43.116891Z", "service": "payment", "level": "INFO", "message": "Payment processed successfully", "user_id": "user_2", "amount": 27.0, "currency": "USD"}
+{"timestamp": "2026-09-02T08:42:33.884215Z", "service": "payment", "level": "INFO", "message": "Starting payment processing", "user_id": "user_0", "amount": 25.0, "currency": "USD"}
+{"timestamp": "2026-09-02T08:42:33.884287Z", "service": "payment", "level": "INFO", "message": "Payment processed successfully", "user_id": "user_0", "amount": 25.0, "currency": "USD"}
+{"timestamp": "2026-09-02T08:42:33.986141Z", "service": "payment", "level": "INFO", "message": "Starting payment processing", "user_id": "user_1", "amount": 26.0, "currency": "USD"}
+{"timestamp": "2026-09-02T08:42:33.986192Z", "service": "payment", "level": "INFO", "message": "Payment processed successfully", "user_id": "user_1", "amount": 26.0, "currency": "USD"}
+{"timestamp": "2026-09-02T08:42:34.090294Z", "service": "payment", "level": "INFO", "message": "Starting payment processing", "user_id": "user_2", "amount": 27.0, "currency": "USD"}
+{"timestamp": "2026-09-02T08:42:34.090354Z", "service": "payment", "level": "INFO", "message": "Payment processed successfully", "user_id": "user_2", "amount": 27.0, "currency": "USD"}

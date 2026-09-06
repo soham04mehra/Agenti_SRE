@@ -1,0 +1,14 @@
+{
+  "incident_id": "inc_1788617008",
+  "timestamp": "2026-09-05T14:03:28.341592Z",
+  "fault_type": "db_pool_exhaustion",
+  "affected_service": "payment_service",
+  "symptom": "High error rate and database connection timeouts during payment processing",
+  "expected_evidence": [
+    "DB pool exhausted",
+    "max_connections=10 reached",
+    "db_connections_active=10"
+  ],
+  "expected_root_cause": "Database connection pool exhaustion in payment_service due to max active connections reached.",
+  "expected_action": "Increase database connection pool limit or release idle connections."
+}

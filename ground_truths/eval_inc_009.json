@@ -1,0 +1,15 @@
+{
+  "incident_id": "eval_inc_009",
+  "timestamp": "2026-09-06T17:19:37.820958+00:00",
+  "raw_description": "Immediate 100% error rate on payment requests following recent deployment release v2.4.1 (Scenario #3)",
+  "affected_service": "payment_service",
+  "fault_type": "bad_deployment",
+  "expected_evidence": [
+    "ConfigurationError",
+    "Invalid payment gateway endpoint URL",
+    "error_rate=1.0"
+  ],
+  "expected_root_cause": "Bad deployment configuration typo pointing payment_service to invalid gateway endpoint URL.",
+  "expected_action": "Rollback deployment or fix gateway URL configuration environment variable.",
+  "is_red_herring": false
+}

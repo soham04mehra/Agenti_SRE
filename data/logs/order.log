@@ -1,0 +1,30 @@
+{"timestamp": "2026-09-01T11:30:16.194082Z", "service": "order", "level": "INFO", "message": "Received order creation request", "user_id": "user1", "item_id": "itemA", "amount": 50.0}
+{"timestamp": "2026-09-01T11:30:16.194513Z", "service": "order", "level": "INFO", "message": "Order created successfully", "order_id": "ORD-user-itemA", "user_id": "user1"}
+{"timestamp": "2026-09-02T08:31:42.906895Z", "service": "order", "level": "INFO", "message": "Received order creation request", "user_id": "user_0", "item_id": "item_0", "amount": 25.0}
+{"timestamp": "2026-09-02T08:31:42.907476Z", "service": "order", "level": "INFO", "message": "Order created successfully", "order_id": "ORD-user-item_0", "user_id": "user_0"}
+{"timestamp": "2026-09-02T08:31:43.012568Z", "service": "order", "level": "INFO", "message": "Received order creation request", "user_id": "user_1", "item_id": "item_1", "amount": 26.0}
+{"timestamp": "2026-09-02T08:31:43.013154Z", "service": "order", "level": "INFO", "message": "Order created successfully", "order_id": "ORD-user-item_1", "user_id": "user_1"}
+{"timestamp": "2026-09-02T08:31:43.116504Z", "service": "order", "level": "INFO", "message": "Received order creation request", "user_id": "user_2", "item_id": "item_2", "amount": 27.0}
+{"timestamp": "2026-09-02T08:31:43.117167Z", "service": "order", "level": "INFO", "message": "Order created successfully", "order_id": "ORD-user-item_2", "user_id": "user_2"}
+{"timestamp": "2026-09-02T08:31:43.220069Z", "service": "order", "level": "WARNING", "message": "Fault mode updated", "fault_mode": "db_timeout"}
+{"timestamp": "2026-09-02T08:31:43.220813Z", "service": "order", "level": "INFO", "message": "Received order creation request", "user_id": "user_fail_0", "item_id": "item_fail_0", "amount": 100.0}
+{"timestamp": "2026-09-02T08:31:43.221412Z", "service": "order", "level": "ERROR", "message": "Database connection timed out", "user_id": "user_fail_0", "error": "TimeoutError: DB pool exhausted"}
+{"timestamp": "2026-09-02T08:31:43.323604Z", "service": "order", "level": "INFO", "message": "Received order creation request", "user_id": "user_fail_1", "item_id": "item_fail_1", "amount": 100.0}
+{"timestamp": "2026-09-02T08:31:43.324276Z", "service": "order", "level": "ERROR", "message": "Database connection timed out", "user_id": "user_fail_1", "error": "TimeoutError: DB pool exhausted"}
+{"timestamp": "2026-09-02T08:31:43.428381Z", "service": "order", "level": "INFO", "message": "Received order creation request", "user_id": "user_fail_2", "item_id": "item_fail_2", "amount": 100.0}
+{"timestamp": "2026-09-02T08:31:43.429072Z", "service": "order", "level": "ERROR", "message": "Database connection timed out", "user_id": "user_fail_2", "error": "TimeoutError: DB pool exhausted"}
+{"timestamp": "2026-09-02T08:31:43.533177Z", "service": "order", "level": "WARNING", "message": "Fault mode updated", "fault_mode": null}
+{"timestamp": "2026-09-02T08:42:33.883901Z", "service": "order", "level": "INFO", "message": "Received order creation request", "user_id": "user_0", "item_id": "item_0", "amount": 25.0}
+{"timestamp": "2026-09-02T08:42:33.884328Z", "service": "order", "level": "INFO", "message": "Order created successfully", "order_id": "ORD-user-item_0", "user_id": "user_0"}
+{"timestamp": "2026-09-02T08:42:33.985871Z", "service": "order", "level": "INFO", "message": "Received order creation request", "user_id": "user_1", "item_id": "item_1", "amount": 26.0}
+{"timestamp": "2026-09-02T08:42:33.986458Z", "service": "order", "level": "INFO", "message": "Order created successfully", "order_id": "ORD-user-item_1", "user_id": "user_1"}
+{"timestamp": "2026-09-02T08:42:34.090113Z", "service": "order", "level": "INFO", "message": "Received order creation request", "user_id": "user_2", "item_id": "item_2", "amount": 27.0}
+{"timestamp": "2026-09-02T08:42:34.090404Z", "service": "order", "level": "INFO", "message": "Order created successfully", "order_id": "ORD-user-item_2", "user_id": "user_2"}
+{"timestamp": "2026-09-02T08:42:34.195589Z", "service": "order", "level": "WARNING", "message": "Fault mode updated", "fault_mode": "db_timeout"}
+{"timestamp": "2026-09-02T08:42:34.196346Z", "service": "order", "level": "INFO", "message": "Received order creation request", "user_id": "user_fail_0", "item_id": "item_fail_0", "amount": 100.0}
+{"timestamp": "2026-09-02T08:42:34.196784Z", "service": "order", "level": "ERROR", "message": "Database connection timed out", "user_id": "user_fail_0", "error": "TimeoutError: DB pool exhausted"}
+{"timestamp": "2026-09-02T08:42:34.301724Z", "service": "order", "level": "INFO", "message": "Received order creation request", "user_id": "user_fail_1", "item_id": "item_fail_1", "amount": 100.0}
+{"timestamp": "2026-09-02T08:42:34.302132Z", "service": "order", "level": "ERROR", "message": "Database connection timed out", "user_id": "user_fail_1", "error": "TimeoutError: DB pool exhausted"}
+{"timestamp": "2026-09-02T08:42:34.407586Z", "service": "order", "level": "INFO", "message": "Received order creation request", "user_id": "user_fail_2", "item_id": "item_fail_2", "amount": 100.0}
+{"timestamp": "2026-09-02T08:42:34.408146Z", "service": "order", "level": "ERROR", "message": "Database connection timed out", "user_id": "user_fail_2", "error": "TimeoutError: DB pool exhausted"}
+{"timestamp": "2026-09-02T08:42:34.513749Z", "service": "order", "level": "WARNING", "message": "Fault mode updated", "fault_mode": null}

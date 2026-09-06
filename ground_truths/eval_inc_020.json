@@ -1,0 +1,15 @@
+{
+  "incident_id": "eval_inc_020",
+  "timestamp": "2026-09-06T17:19:37.821837+00:00",
+  "raw_description": "Extreme latency spikes (30s) and gateway timeout errors when processing transactions (Scenario #2)",
+  "affected_service": "payment_service",
+  "fault_type": "downstream_timeout",
+  "expected_evidence": [
+    "GatewayTimeout",
+    "timed out after 30000ms",
+    "dependency_latency_ms=30000.0"
+  ],
+  "expected_root_cause": "Downstream external payment gateway latency timeout.",
+  "expected_action": "Verify downstream payment gateway status and configure circuit breaker pattern.",
+  "is_red_herring": false
+}

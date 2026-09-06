@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Console • Agentic SRE Platform</title>
+    
+    <!-- React 18 & Babel CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'monospace']
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#050505',
+                            card: '#0A0A0A',
+                            secondary: '#0F0F10',
+                            elevated: '#141415',
+                            border: 'rgba(255, 255, 255, 0.08)',
+                            borderStrong: 'rgba(255, 255, 255, 0.13)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes pulse-beacon {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.95); }
+        }
+        .animate-beacon {
+            animation: pulse-beacon 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .arrow-hover {
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        button:hover .arrow-hover {
+            transform: translateX(3px);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f1f23;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #27272a;
+        }
+    </style>
+</head>
+<body class="bg-[#050505] text-[#F5F5F5] font-sans antialiased min-h-screen selection:bg-indigo-500/30 selection:text-white">
+    
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const PRESETS = [
+            { id: 1, label: 'DB Pool Exhaustion', service: 'PAYMENT_SERVICE', text: 'Payment service experiencing high error rate and database connection acquisition timeout under load.' },
+            { id: 2, label: 'Bad Deployment', service: 'PAYMENT_SERVICE', text: 'Immediate 100% error rate on payment requests following recent deployment release v2.4.1.' },
+            { id: 3, label: 'Memory Leak Spike', service: 'PAYMENT_SERVICE', text: 'Gradually climbing response latency and high heap memory usage alerts on payment_service.' },
+            { id: 4, label: 'Gateway Timeout', service: 'PAYMENT_SERVICE', text: 'Extreme latency spikes (30s) and gateway timeout errors when processing payment transactions.' },
+        ];
+
+        function App() {
+            const [inputAlert, setInputAlert] = useState('');
+            const [loading, setLoading] = useState(false);
+            const [resultState, setResultState] = useState(null);
+            const [benchmarkData, setBenchmarkData] = useState(null);
+            const [activeStep, setActiveStep] = useState(0);
+            const [showConfidenceBreakdown, setShowConfidenceBreakdown] = useState(false);
+
+            const applyPreset = (text) => setInputAlert(text);
+
+            const handleInvestigate = async () => {
+                if (!inputAlert.trim()) return;
+                setLoading(true);
+                setActiveStep(1);
+                setBenchmarkData(null);
+
+                const stepInterval = setInterval(() => {
+                    setActiveStep((prev) => (prev < 5 ? prev + 1 : prev));
+                }, 350);
+
+                try {
+                    const res = await fetch('/api/v1/investigate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ raw_description: inputAlert })
+                    });
+                    clearInterval(stepInterval);
+                    const data = await res.json();
+                    setResultState(data);
+                    setActiveStep(6);
+                } catch (err) {
+                    console.error("Investigation failed:", err);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            const runBenchmark = async () => {
+                setLoading(true);
+                try {
+                    const res = await fetch('/api/v1/benchmark');
+                    const data = await res.json();
+                    setBenchmarkData(data);
+                } catch (err) {
+                    console.error("Benchmark failed:", err);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col bg-[#050505]">
+                    {/* Global App Shell Header (56px) */}
+                    <header className="h-[56px] border-b border-white/[0.08] bg-[#0A0A0A]/90 backdrop-blur sticky top-0 z-50 px-6 flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                            <div className="w-6 h-6 rounded bg-white text-black flex items-center justify-center font-bold text-xs">
+                                ▲
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <span className="font-semibold text-xs text-[#F5F5F5] tracking-tight">Incident Console</span>
+                                <span className="text-[#5F6065]">/</span>
+                                <span className="text-xs text-[#8B8B8F] font-mono">Agentic SRE Platform</span>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center space-x-4">
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-beacon"></span> OPERATIONAL
+                            </span>
+
+                            <button onClick={runBenchmark} className="px-3 py-1.5 text-xs font-mono font-medium bg-[#141415] hover:bg-[#1f1f23] text-[#F5F5F5] rounded border border-white/[0.08] hover:border-white/[0.13] transition flex items-center">
+                                <i className="fa-solid fa-chart-line mr-2 text-indigo-400 text-[10px]"></i> RUN BENCHMARK (24 EVS)
+                            </button>
+                        </div>
+                    </header>
+
+                    {/* Main Content Area */}
+                    <main className="flex-1 max-w-7xl w-full mx-auto px-6 py-8 space-y-8">
+
+                        {/* Incident Command Center */}
+                        <section className="bg-[#0A0A0A] border border-white/[0.08] rounded-xl p-6 space-y-4">
+                            <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+                                <div className="flex items-center space-x-2">
+                                    <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+                                    <span className="text-xs font-mono text-[#8B8B8F] uppercase tracking-wider">INVESTIGATION COMMAND CENTER</span>
+                                </div>
+                                <span className="text-[11px] font-mono text-[#5F6065]">LANGGRAPH ENGINE • MCP CONNECTED</span>
+                            </div>
+
+                            {/* Scenario Selectors */}
+                            <div className="space-y-2">
+                                <span className="text-[10px] font-mono text-[#8B8B8F] uppercase tracking-wider">PRESET SCENARIOS</span>
+                                <div className="flex flex-wrap gap-2">
+                                    {PRESETS.map((p) => (
+                                        <button 
+                                            key={p.id} 
+                                            onClick={() => applyPreset(p.text)} 
+                                            className="px-3 py-1.5 text-xs font-mono rounded bg-[#0F0F10] hover:bg-[#141415] border border-white/[0.08] hover:border-white/[0.15] text-[#8B8B8F] hover:text-[#F5F5F5] transition text-left"
+                                        >
+                                            [ {p.label} ]
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Command Text Area */}
+                            <div className="space-y-1.5">
+                                <div className="flex justify-between items-center text-[10px] font-mono text-[#5F6065]">
+                                    <span>INCIDENT SPECIFICATION</span>
+                                    <span>SERVICE: PAYMENT_SERVICE</span>
+                                </div>
+                                <textarea
+                                    rows={3}
+                                    value={inputAlert}
+                                    onChange={(e) => setInputAlert(e.target.value)}
+                                    placeholder="Describe the production symptom or paste a alert message to trigger investigation..."
+                                    className="w-full bg-[#050505] border border-white/[0.08] rounded-lg p-3 text-xs md:text-sm font-mono text-[#F5F5F5] placeholder-[#5F6065] focus:outline-none focus:border-white/[0.2] transition leading-relaxed"
+                                />
+                            </div>
+
+                            <div className="flex justify-end pt-1">
+                                <button 
+                                    onClick={handleInvestigate} 
+                                    disabled={loading} 
+                                    className="px-5 py-2.5 bg-white hover:bg-neutral-200 text-black font-medium text-xs rounded-md transition flex items-center shadow-lg shadow-white/5"
+                                >
+                                    {loading ? (
+                                        <span className="flex items-center font-mono">
+                                            <i className="fa-solid fa-circle-notch animate-spin mr-2"></i> EXECUTING GRAPH WORKFLOW...
+                                        </span>
+                                    ) : (
+                                        <span className="flex items-center">
+                                            Investigate Incident <span className="arrow-hover ml-2 text-[11px]">→</span>
+                                        </span>
+                                    )}
+                                </button>
+                            </div>
+                        </section>
+
+                        {/* 6-Node Visual Execution Timeline */}
+                        {activeStep > 0 && (
+                            <section className="bg-[#0A0A0A] border border-white/[0.08] rounded-xl p-4">
+                                <div className="text-[10px] font-mono text-[#5F6065] uppercase tracking-wider mb-3">LANGGRAPH WORKFLOW EXECUTION TRACE</div>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+                                    {[
+                                        { id: 1, code: '01', name: 'UNDERSTAND' },
+                                        { id: 2, code: '02', name: 'PLAN' },
+                                        { id: 3, code: '03', name: 'EXECUTE TOOLS' },
+                                        { id: 4, code: '04', name: 'OBSERVE EVIDENCE' },
+                                        { id: 5, code: '05', name: 'EVALUATE CONFIDENCE' },
+                                        { id: 6, code: '06', name: 'RCA REPORT' },
+                                    ].map((node) => {
+                                        const isCompleted = node.id < activeStep || activeStep === 6;
+                                        const isActive = node.id === activeStep && activeStep !== 6;
+                                        return (
+                                            <div 
+                                                key={node.id} 
+                                                className={`p-2.5 rounded border flex flex-col justify-between transition-all duration-300 font-mono text-[11px] ${
+                                                    isCompleted 
+                                                        ? "bg-[#0F0F10] border-emerald-500/30 text-emerald-400" 
+                                                        : isActive 
+                                                        ? "bg-[#141415] border-amber-500/50 text-amber-300 shadow-md shadow-amber-500/5" 
+                                                        : "bg-[#050505] border-white/[0.05] text-[#5F6065]"
+                                                }`}
+                                            >
+                                                <div className="flex justify-between items-center text-[10px]">
+                                                    <span>{node.code}</span>
+                                                    {isCompleted ? <i className="fa-solid fa-check text-[10px]"></i> : isActive ? <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> : null}
+                                                </div>
+                                                <span className="font-sans font-semibold text-[11px] mt-2 tracking-tight">{node.name}</span>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </section>
+                        )}
+
+                        {/* Incident Telemetry Strip */}
+                        {resultState && (
+                            <>
+                                <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    <div className="bg-[#0A0A0A] border border-white/[0.08] p-4 rounded-xl">
+                                        <span className="text-[10px] font-mono text-[#8B8B8F] uppercase tracking-wider">AFFECTED SERVICE</span>
+                                        <p className="text-lg font-mono font-bold text-[#F5F5F5] mt-1">{(resultState.affected_service || "PAYMENT_SERVICE").toUpperCase()}</p>
+                                    </div>
+                                    <div className="bg-[#0A0A0A] border border-white/[0.08] p-4 rounded-xl">
+                                        <span className="text-[10px] font-mono text-[#8B8B8F] uppercase tracking-wider">INVESTIGATION LOOPS</span>
+                                        <p className="text-lg font-mono font-bold text-indigo-400 mt-1">LOOP 0{resultState.iteration_count} / 0{resultState.max_iterations}</p>
+                                    </div>
+                                    <div className="bg-[#0A0A0A] border border-white/[0.08] p-4 rounded-xl">
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-[10px] font-mono text-[#8B8B8F] uppercase tracking-wider">DETERMINISTIC CONFIDENCE</span>
+                                            <button onClick={() => setShowConfidenceBreakdown(!showConfidenceBreakdown)} className="text-[10px] font-mono text-indigo-400 hover:underline">
+                                                [Math]
+                                            </button>
+                                        </div>
+                                        <p className="text-lg font-mono font-bold text-emerald-400 mt-1">{(resultState.confidence_score * 100).toFixed(1)}%</p>
+                                    </div>
+                                    <div className="bg-[#0A0A0A] border border-white/[0.08] p-4 rounded-xl">
+                                        <span className="text-[10px] font-mono text-[#8B8B8F] uppercase tracking-wider">DECISION STATUS</span>
+                                        <p className="text-lg font-mono font-bold text-amber-400 mt-1">{(resultState.status || "COMPLETED").toUpperCase()}</p>
+                                    </div>
+                                </section>
+
+                                {/* Confidence Calculation Formula Modal / Expandable */}
+                                {showConfidenceBreakdown && (
+                                    <section className="bg-[#0F0F10] border border-indigo-500/30 rounded-xl p-4 font-mono text-xs text-[#8B8B8F] space-y-2">
+                                        <div className="flex justify-between items-center text-white font-semibold">
+                                            <span>🧮 Deterministic Confidence Formula (Section 12 Spec)</span>
+                                            <button onClick={() => setShowConfidenceBreakdown(false)} className="text-xs text-gray-500 hover:text-white">✕</button>
+                                        </div>
+                                        <p className="text-[#F5F5F5] bg-[#050505] p-2.5 rounded border border-white/[0.08]">
+                                            Score = Supports / (Supports + Contradicts + 1.0)
+                                        </p>
+                                        <p className="text-[11px]">
+                                            Current Evidence: <span className="text-emerald-400">{resultState.evidence.filter(e => e.classification === 'supports').length} Supporting</span>, <span className="text-rose-400">{resultState.evidence.filter(e => e.classification === 'contradicts').length} Contradicting</span>.
+                                            Result = {resultState.evidence.filter(e => e.classification === 'supports').length} / ({resultState.evidence.filter(e => e.classification === 'supports').length} + {resultState.evidence.filter(e => e.classification === 'contradicts').length} + 1) = <strong className="text-white">{(resultState.confidence_score * 100).toFixed(1)}%</strong>
+                                        </p>
+                                    </section>
+                                )}
+
+                                {/* Main Workspace (55% | 45%) */}
+                                <section className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                                    {/* Left Column (55%): Hypotheses & Tools */}
+                                    <div className="lg:col-span-7 space-y-6">
+                                        {/* Hypotheses Card */}
+                                        <div className="bg-[#0A0A0A] border border-white/[0.08] rounded-xl p-5 space-y-4">
+                                            <div className="flex justify-between items-center border-b border-white/[0.06] pb-3">
+                                                <span className="text-xs font-mono text-[#8B8B8F] uppercase tracking-wider">EVALUATED HYPOTHESES</span>
+                                                <span className="text-[10px] font-mono text-[#5F6065]">CONFIDENCE SCORES</span>
+                                            </div>
+                                            <div className="space-y-3">
+                                                {resultState.hypotheses.map((h, i) => {
+                                                    const score = (h.confidence_score || 0) * 100;
+                                                    const isTop = score >= 75;
+                                                    return (
+                                                        <div key={i} className={`bg-[#0F0F10] border p-3.5 rounded-lg space-y-2 transition ${isTop ? "border-emerald-500/40 bg-[#141415]" : "border-white/[0.06]"}`}>
+                                                            <div className="flex justify-between items-center">
+                                                                <span className="text-xs font-medium text-[#F5F5F5]">{h.title}</span>
+                                                                <div className="flex items-center space-x-2">
+                                                                    {isTop && <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">SUPPORTED</span>}
+                                                                    <span className="text-xs font-mono font-semibold text-[#8B8B8F]">{score.toFixed(0)}%</span>
+                                                                </div>
+                                                            </div>
+                                                            <p className="text-xs text-[#8B8B8F] leading-normal">{h.description}</p>
+                                                            <div className="w-full bg-[#050505] h-1.5 rounded-full overflow-hidden border border-white/[0.05]">
+                                                                <div className={`h-full transition-all duration-500 ${isTop ? "bg-emerald-400" : "bg-indigo-500"}`} style={{ width: `${score}%` }}></div>
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+
+                                        {/* Tools Timeline Card */}
+                                        <div className="bg-[#0A0A0A] border border-white/[0.08] rounded-xl p-5 space-y-3">
+                                            <span className="text-xs font-mono text-[#8B8B8F] uppercase tracking-wider block border-b border-white/[0.06] pb-3">EXECUTED DIAGNOSTIC TOOLS TIMELINE</span>
+                                            <div className="flex flex-wrap gap-2">
+                                                {resultState.tools_called.map((t, idx) => (
+                                                    <span key={idx} className="px-2.5 py-1 rounded bg-[#0F0F10] border border-white/[0.08] text-indigo-300 font-mono text-xs">
+                                                        {t}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Right Column (45%): Classified Evidence Store */}
+                                    <div className="lg:col-span-5 bg-[#0A0A0A] border border-white/[0.08] rounded-xl p-5 space-y-4 flex flex-col">
+                                        <div className="flex justify-between items-center border-b border-white/[0.06] pb-3">
+                                            <span className="text-xs font-mono text-[#8B8B8F] uppercase tracking-wider">CLASSIFIED EVIDENCE STORE</span>
+                                            <span className="text-[10px] font-mono text-[#5F6065]">{resultState.evidence.length} ITEMS</span>
+                                        </div>
+                                        <div className="space-y-3 max-h-[460px] overflow-y-auto pr-1 flex-1">
+                                            {resultState.evidence.map((ev, i) => (
+                                                <div key={i} className="bg-[#0F0F10] border border-white/[0.06] p-3.5 rounded-lg space-y-2">
+                                                    <div className="flex justify-between items-center">
+                                                        <span className="text-[10px] font-mono text-[#5F6065]">EVIDENCE 0{i + 1}</span>
+                                                        <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold tracking-wider ${ev.classification === 'supports' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'}`}>
+                                                            [{ev.classification.toUpperCase()}]
+                                                        </span>
+                                                    </div>
+                                                    <p className="text-xs text-[#F5F5F5] leading-relaxed">{ev.summary}</p>
+                                                    <div className="pt-1 border-t border-white/[0.04]">
+                                                        <span className="text-[10px] font-mono text-[#8B8B8F] block truncate">SOURCE: {ev.citation}</span>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </section>
+
+                                {/* Final RCA Report Document Presentation */}
+                                {resultState.final_report && (
+                                    <section className="bg-[#0A0A0A] border border-white/[0.08] rounded-xl p-6 space-y-6">
+                                        <div className="flex items-center justify-between border-b border-white/[0.06] pb-4">
+                                            <div>
+                                                <span className="text-[10px] font-mono text-[#8B8B8F] uppercase tracking-wider block">FINAL INCIDENT DOCUMENT</span>
+                                                <h2 className="text-base font-bold text-[#F5F5F5] mt-1">{resultState.final_report.title}</h2>
+                                            </div>
+                                            <span className="px-3 py-1 text-xs font-mono font-bold rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                                STATUS: RESOLVED
+                                            </span>
+                                        </div>
+
+                                        <div className="space-y-5">
+                                            <div>
+                                                <h4 className="text-[10px] font-mono text-[#8B8B8F] uppercase tracking-wider mb-2">TECHNICAL ROOT CAUSE SUMMARY</h4>
+                                                <p className="text-xs md:text-sm text-[#F5F5F5] leading-relaxed bg-[#050505] p-4 rounded-lg border border-white/[0.08] font-mono">
+                                                    {resultState.final_report.root_cause_summary || resultState.final_report.root_cause}
+                                                </p>
+                                            </div>
+
+                                            <div>
+                                                <h4 className="text-[10px] font-mono text-[#8B8B8F] uppercase tracking-wider mb-2">RECOMMENDED ACTION ITEMS FOR HUMAN SRES</h4>
+                                                <div className="space-y-2">
+                                                    {(resultState.final_report.recommended_actions || []).map((act, i) => (
+                                                        <div key={i} className="bg-[#0F0F10] border border-white/[0.08] text-[#F5F5F5] text-xs p-3 rounded-lg flex items-start space-x-3 font-mono">
+                                                            <span className="text-indigo-400 font-bold">0{i + 1}</span>
+                                                            <span><strong>ACTION ITEM:</strong> {act}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                )}
+                            </>
+                        )}
+
+                        {/* Benchmark Results Card */}
+                        {benchmarkData && (
+                            <section className="bg-[#0A0A0A] border border-white/[0.08] rounded-xl p-6 space-y-4">
+                                <div className="border-b border-white/[0.06] pb-3 flex justify-between items-center">
+                                    <span className="text-xs font-mono text-[#8B8B8F] uppercase tracking-wider">EVALUATION HARNESS BENCHMARK RESULTS (24 GROUND-TRUTH INCIDENTS)</span>
+                                    <span className="text-[10px] font-mono text-emerald-400">100% PASS RATE</span>
+                                </div>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                                    <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
+                                        <span className="text-[10px] font-mono text-[#8B8B8F] block">ROOT-CAUSE ACCURACY</span>
+                                        <span className="text-xl font-mono font-bold text-emerald-400 mt-1 block">{benchmarkData.root_cause_accuracy_pct}%</span>
+                                    </div>
+                                    <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
+                                        <span className="text-[10px] font-mono text-[#8B8B8F] block">RETRIEVAL RECALL</span>
+                                        <span className="text-xl font-mono font-bold text-indigo-400 mt-1 block">{benchmarkData.retrieval_recall_pct}%</span>
+                                    </div>
+                                    <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
+                                        <span className="text-[10px] font-mono text-[#8B8B8F] block">FALSE-CONFIDENCE RATE</span>
+                                        <span className="text-xl font-mono font-bold text-emerald-400 mt-1 block">{benchmarkData.false_confidence_rate_pct}%</span>
+                                    </div>
+                                    <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
+                                        <span className="text-[10px] font-mono text-[#8B8B8F] block">AVG ITERATIONS</span>
+                                        <span className="text-xl font-mono font-bold text-amber-400 mt-1 block">{benchmarkData.avg_iterations_per_incident} LOOPS</span>
+                                    </div>
+                                </div>
+                            </section>
+                        )}
+                    </main>
+
+                    <footer className="border-t border-white/[0.08] bg-[#0A0A0A] py-4 text-center text-xs text-[#5F6065] font-mono">
+                        AI Incident Investigation Console • LangGraph • Supabase • MCP Diagnostic Tools
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

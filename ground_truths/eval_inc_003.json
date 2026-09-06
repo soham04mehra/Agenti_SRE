@@ -1,0 +1,15 @@
+{
+  "incident_id": "eval_inc_003",
+  "timestamp": "2026-09-06T17:19:37.820427+00:00",
+  "raw_description": "Payment service experiencing high error rate and database connection acquisition timeout under load (Scenario #3)",
+  "affected_service": "payment_service",
+  "fault_type": "db_pool_exhaustion",
+  "expected_evidence": [
+    "DB pool exhausted",
+    "max_connections=10 reached",
+    "db_connections_active=10"
+  ],
+  "expected_root_cause": "Database connection pool exhaustion in payment_service due to max active connections reached.",
+  "expected_action": "Increase database connection pool limit or release idle connections.",
+  "is_red_herring": false
+}

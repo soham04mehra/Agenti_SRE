@@ -1,0 +1,12 @@
+{"timestamp": "2026-09-05T14:03:27.810741Z", "service": "payment_service", "level": "WARNING", "message": "Fault mode updated", "fault_mode": "db_pool_exhaustion"}
+{"timestamp": "2026-09-05T14:03:27.810951Z", "service": "payment_service", "level": "INFO", "message": "Processing payment", "user_id": "usr_100", "amount": 50.0}
+{"timestamp": "2026-09-05T14:03:27.810975Z", "service": "payment_service", "level": "ERROR", "message": "DB pool exhausted: max_connections=10 reached, connection acquisition timed out", "user_id": "usr_100", "error": "DBConnectionPoolError"}
+{"timestamp": "2026-09-05T14:03:27.916134Z", "service": "payment_service", "level": "INFO", "message": "Processing payment", "user_id": "usr_101", "amount": 60.0}
+{"timestamp": "2026-09-05T14:03:27.916198Z", "service": "payment_service", "level": "ERROR", "message": "DB pool exhausted: max_connections=10 reached, connection acquisition timed out", "user_id": "usr_101", "error": "DBConnectionPoolError"}
+{"timestamp": "2026-09-05T14:03:28.021369Z", "service": "payment_service", "level": "INFO", "message": "Processing payment", "user_id": "usr_102", "amount": 70.0}
+{"timestamp": "2026-09-05T14:03:28.021438Z", "service": "payment_service", "level": "ERROR", "message": "DB pool exhausted: max_connections=10 reached, connection acquisition timed out", "user_id": "usr_102", "error": "DBConnectionPoolError"}
+{"timestamp": "2026-09-05T14:03:28.127554Z", "service": "payment_service", "level": "INFO", "message": "Processing payment", "user_id": "usr_103", "amount": 80.0}
+{"timestamp": "2026-09-05T14:03:28.127797Z", "service": "payment_service", "level": "ERROR", "message": "DB pool exhausted: max_connections=10 reached, connection acquisition timed out", "user_id": "usr_103", "error": "DBConnectionPoolError"}
+{"timestamp": "2026-09-05T14:03:28.230357Z", "service": "payment_service", "level": "INFO", "message": "Processing payment", "user_id": "usr_104", "amount": 90.0}
+{"timestamp": "2026-09-05T14:03:28.230606Z", "service": "payment_service", "level": "ERROR", "message": "DB pool exhausted: max_connections=10 reached, connection acquisition timed out", "user_id": "usr_104", "error": "DBConnectionPoolError"}
+{"timestamp": "2026-09-05T14:03:28.336836Z", "service": "payment_service", "level": "WARNING", "message": "Fault mode updated", "fault_mode": null}

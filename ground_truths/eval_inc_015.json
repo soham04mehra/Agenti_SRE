@@ -1,0 +1,15 @@
+{
+  "incident_id": "eval_inc_015",
+  "timestamp": "2026-09-06T17:19:37.821434+00:00",
+  "raw_description": "Gradually climbing response latency and high heap memory usage alerts on payment_service (Scenario #3)",
+  "affected_service": "payment_service",
+  "fault_type": "memory_leak",
+  "expected_evidence": [
+    "High memory usage detected",
+    "92% heap utilized",
+    "memory_usage_mb=1950.0"
+  ],
+  "expected_root_cause": "Memory leak in payment_service causing heap utilization to reach 92%.",
+  "expected_action": "Inspect heap dump, fix uncollected payment session objects, and restart payment_service.",
+  "is_red_herring": false
+}
