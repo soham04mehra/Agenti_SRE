@@ -38,3 +38,16 @@ This document records architectural, evaluation, and system design decisions mad
   3. LLM-generated dynamic cases at runtime: Rejected for holdout because reproducibility requires an immutable, frozen dataset with deterministic grading.
 - **Why this approach was selected**: Equal distribution across 6 categories (3 dev / 3 holdout each) provides sufficient sample size to evaluate both definitive diagnosis and abstention safety, with zero holdout contamination.
 - **Tradeoffs**: Decreases reported benchmark percentages initially (from 100% down to 0% RCA / 66.7% CAR on the unhardened system), but provides an authentic, defensible foundation.
+
+---
+
+### Record 004: Explicit SRE State Machine, Contradiction Routing & Degraded Observability
+
+- **Decision**: Refactor the status schema from a binary outcome (`sufficient_confidence` / `insufficient_evidence`) into four explicit SRE terminal states (`resolved`, `insufficient_evidence`, `unresolved_conflict`, `failed`) and add a `degraded: bool` observability flag.
+- **Why**: Phase 3 requires the system to handle real-world uncertainty safely. A system must distinguish between "insufficient data" (need more signals), "unresolved conflict" (contradictory metrics), "failed" (infrastructure/tool errors), and "degraded" (missing metric snapshots).
+- **Alternatives considered**:
+  1. Letting the LLM generate status strings dynamically: Rejected because it violates deterministic state machine guarantees and allows hallucinated statuses.
+  2. Sticking with binary status and relying solely on confidence thresholds: Rejected because a threshold cannot distinguish between conflicting evidence (active contradictions) and absent evidence (0 data).
+  3. Breaking changes to old DB records: Rejected in favor of an explicit normalizer (`normalize_status`) that maps legacy `sufficient_confidence` to `resolved` on read.
+- **Why this approach was selected**: Provides deterministic routing in LangGraph, backward compatibility for database and API clients, and explicit observability into degraded diagnostic sources.
+- **Tradeoffs**: Requires maintaining report schemas for four distinct terminal outcomes rather than two.

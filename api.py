@@ -78,6 +78,7 @@ def investigate_incident(req: IncidentRequest):
         "iteration_count": 0,
         "max_iterations": 3,
         "status": "investigating",
+        "degraded": False,
         "final_report": None
     }
 

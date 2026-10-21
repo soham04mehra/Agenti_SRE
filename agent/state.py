@@ -1,4 +1,12 @@
-from typing import TypedDict, List, Dict, Any, Optional
+from typing import TypedDict, List, Dict, Any, Optional, Literal
+
+IncidentStatus = Literal[
+    "investigating",
+    "resolved",
+    "insufficient_evidence",
+    "unresolved_conflict",
+    "failed"
+]
 
 class IncidentState(TypedDict):
     """
@@ -29,5 +37,6 @@ class IncidentState(TypedDict):
     confidence_score: float                     # Deterministic evidence strength (0.0 to 1.0)
     iteration_count: int                        # Current investigation loop iteration count
     max_iterations: int                         # Max allowed loops (default: 3)
-    status: str                                 # "investigating", "sufficient_confidence", "insufficient_evidence"
+    status: IncidentStatus                      # "investigating", "resolved", "insufficient_evidence", "unresolved_conflict", "failed"
+    degraded: bool                              # True if one or more diagnostic sources were unavailable
     final_report: Optional[Dict[str, Any]]      # Final generated Root Cause Analysis report

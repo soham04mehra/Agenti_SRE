@@ -21,7 +21,8 @@ def understand_incident(state: IncidentState) -> Dict[str, Any]:
         "affected_service": affected_service,
         "symptom": state.get("symptom") or "High error rate / performance degradation detected",
         "severity": state.get("severity") or "HIGH",
-        "status": "investigating"
+        "status": "investigating",
+        "degraded": state.get("degraded", False)
     }
 
 def plan_investigation(state: IncidentState) -> Dict[str, Any]:
@@ -58,6 +59,8 @@ def execute_tools(state: IncidentState) -> Dict[str, Any]:
     service_name = state.get("affected_service", "payment_service")
     raw_data_refs = list(state.get("raw_data_refs", []))
 
+    degraded = state.get("degraded", False)
+
     for tool_item in next_tools:
         tool_name = tool_item.get("tool")
         if not tool_name or tool_name in tools_called:
@@ -74,6 +77,10 @@ def execute_tools(state: IncidentState) -> Dict[str, Any]:
         else:
             output = {"status": "skipped"}
 
+        # Detect degraded status if any tool was missing or errored
+        if isinstance(output, dict) and output.get("status") in ["not_found", "error"]:
+            degraded = True
+
         raw_data_refs.append({
             "tool": tool_name,
             "output": output
@@ -81,7 +88,8 @@ def execute_tools(state: IncidentState) -> Dict[str, Any]:
 
     return {
         "tools_called": tools_called,
-        "raw_data_refs": raw_data_refs
+        "raw_data_refs": raw_data_refs,
+        "degraded": degraded
     }
 
 def observe_evidence(state: IncidentState) -> Dict[str, Any]:
@@ -127,34 +135,68 @@ def observe_evidence(state: IncidentState) -> Dict[str, Any]:
     }
 
 def evaluate_confidence_node(state: IncidentState) -> Dict[str, Any]:
-    """Node 5: Pure Python calculation of deterministic confidence score."""
+    """Node 5: Pure Python calculation of deterministic confidence score and state transition."""
     hypotheses = state.get("hypotheses", [])
     evidence = state.get("evidence", [])
     iteration_count = state.get("iteration_count", 1)
     max_iterations = state.get("max_iterations", 3)
+    degraded = state.get("degraded", False)
+
+    # 1. Check for systemic tool/infrastructure failure
+    raw_data_refs = state.get("raw_data_refs", [])
+    total_tools = len(raw_data_refs)
+    failed_tools = sum(1 for r in raw_data_refs if isinstance(r.get("output"), dict) and r.get("output", {}).get("status") == "error")
+    if total_tools > 0 and failed_tools == total_tools:
+        return {
+            "confidence_score": 0.0,
+            "status": "failed",
+            "degraded": True
+        }
 
     best_score, top_hypo = evaluate_all_hypotheses(hypotheses, evidence)
 
-    if best_score >= 0.75:
-        status = "sufficient_confidence"
+    # 2. Check for contradictions
+    contradictions = [e for e in evidence if e.get("classification") == "contradicts"]
+    has_unresolved_conflict = False
+
+    if contradictions:
+        top_hypo_id = top_hypo.get("id") if top_hypo else None
+        top_contradictions = [
+            e for e in contradictions 
+            if e.get("hypothesis_id") == top_hypo_id or e.get("hypothesis") == top_hypo_id
+        ]
+        if top_contradictions:
+            has_unresolved_conflict = True
+
+    # 3. Deterministic status transitions
+    if best_score >= 0.75 and not has_unresolved_conflict:
+        status = "resolved"
     elif iteration_count >= max_iterations:
-        status = "insufficient_evidence"
+        if has_unresolved_conflict:
+            status = "unresolved_conflict"
+        else:
+            status = "insufficient_evidence"
     else:
         status = "investigating"
 
     return {
         "confidence_score": best_score,
-        "status": status
+        "status": status,
+        "degraded": degraded
     }
 
 def generate_report(state: IncidentState) -> Dict[str, Any]:
-    """Node 6: Produce evidence-backed RCA report."""
+    """Node 6: Produce evidence-backed RCA report with explicit status schemas."""
     status = state.get("status")
     best_score = state.get("confidence_score", 0.0)
     hypotheses = state.get("hypotheses", [])
     evidence = state.get("evidence", [])
+    degraded = state.get("degraded", False)
 
     top_hypo = max(hypotheses, key=lambda h: h.get("confidence_score", 0.0), default=None)
+
+    supporting = [e for e in evidence if e.get("classification") == "supports"]
+    contradicting = [e for e in evidence if e.get("classification") == "contradicts"]
 
     if status == "insufficient_evidence":
         report = {
@@ -162,17 +204,43 @@ def generate_report(state: IncidentState) -> Dict[str, Any]:
             "status": "INSUFFICIENT_EVIDENCE",
             "confidence_score": best_score,
             "root_cause_summary": "Insufficient evidence gathered to confirm a single definitive root cause.",
-            "recommended_actions": ["Run manual heap profiling", "Verify network firewall logs"],
-            "evidence": evidence
+            "recommended_actions": ["Run manual heap profiling", "Verify network firewall logs", "Inspect upstream service telemetry"],
+            "evidence": evidence,
+            "degraded": degraded
+        }
+    elif status == "unresolved_conflict":
+        conflict_target = top_hypo.get("title") if top_hypo else "system components"
+        report = {
+            "title": "Incident Investigation Report - Unresolved Contradiction",
+            "status": "UNRESOLVED_CONFLICT",
+            "confidence_score": best_score,
+            "root_cause_summary": f"Unresolved conflict: Telemetry presents contradictory indicators for {conflict_target}.",
+            "conflicting_evidence": contradicting,
+            "recommended_actions": ["Manual SRE triage required to reconcile contradictory telemetry signals before applying remediation."],
+            "evidence": evidence,
+            "degraded": degraded
+        }
+    elif status == "failed":
+        report = {
+            "title": "Incident Investigation Report - System Failure",
+            "status": "FAILED",
+            "confidence_score": 0.0,
+            "root_cause_summary": "Diagnostic investigation halted due to system or tool infrastructure failure.",
+            "recommended_actions": ["Verify observability tool agents, network reachability, and rerun investigation."],
+            "evidence": evidence,
+            "degraded": True
         }
     else:
+        # "resolved" or legacy "sufficient_confidence"
         report = {
             "title": f"Root Cause Analysis - {top_hypo.get('title') if top_hypo else 'Unknown'}",
             "status": "RESOLVED",
             "confidence_score": best_score,
             "root_cause_summary": f"Confirmed Root Cause: {top_hypo.get('description') if top_hypo else 'System failure'}",
-            "supporting_evidence": [e for e in evidence if e.get("classification") == "supports"],
-            "recommended_actions": ["Execute targeted remediation action based on evidence."]
+            "root_cause_id": top_hypo.get("id") if top_hypo else "unknown",
+            "supporting_evidence": supporting,
+            "recommended_actions": ["Execute targeted remediation action based on evidence."],
+            "degraded": degraded
         }
 
     return {

@@ -4,6 +4,12 @@ from database.connection import get_supabase_client
 # Simple local dictionary store if Supabase is disconnected
 LOCAL_MEMORY_STORE: Dict[str, Any] = {}
 
+def normalize_status(status: str | None) -> str:
+    """Normalize legacy status values for backward compatibility."""
+    if status == "sufficient_confidence":
+        return "resolved"
+    return status or "investigating"
+
 def save_incident_state(state: Dict[str, Any]) -> bool:
     """Save the IncidentState dictionary to Supabase."""
     incident_id = state.get("incident_id")
@@ -32,17 +38,28 @@ def save_incident_state(state: Dict[str, Any]) -> bool:
     return True
 
 def get_incident_state(incident_id: str) -> Dict[str, Any] | None:
-    """Fetch an IncidentState dictionary by incident_id."""
+    """Fetch an IncidentState dictionary by incident_id with status normalization."""
     client = get_supabase_client()
+    state_data = None
     if client:
         try:
             response = client.table("incident_state").select("state_data").eq("incident_id", incident_id).execute()
             if response.data:
-                return response.data[0]["state_data"]
+                state_data = response.data[0]["state_data"]
         except Exception as err:
             print(f"⚠️ Could not fetch from Supabase: {err}")
 
-    return LOCAL_MEMORY_STORE.get(incident_id)
+    if not state_data:
+        state_data = LOCAL_MEMORY_STORE.get(incident_id)
+
+    if state_data and isinstance(state_data, dict):
+        if "status" in state_data:
+            state_data["status"] = normalize_status(state_data["status"])
+        if "final_report" in state_data and isinstance(state_data["final_report"], dict):
+            if "status" in state_data["final_report"]:
+                state_data["final_report"]["status"] = normalize_status(state_data["final_report"]["status"].lower()).upper()
+
+    return state_data
 
 def query_past_incidents_from_db(query_text: str) -> List[Dict[str, Any]]:
     """Fetch similar past incidents from Supabase table 'past_incidents'."""

@@ -13,11 +13,11 @@ def route_after_confidence(state: IncidentState) -> str:
     """
     Router function that decides whether to loop back or report.
     Returns:
-      - 'generate_report': If confidence is high (>= 0.75) OR max iterations reached.
-      - 'replan': If confidence is low and iterations remain (loops back to plan_investigation).
+      - 'generate_report': If status in terminal states ('resolved', 'insufficient_evidence', 'unresolved_conflict', 'failed').
+      - 'replan': If status == 'investigating' and iterations remain (loops back to plan_investigation).
     """
     status = state.get("status")
-    if status in ["sufficient_confidence", "insufficient_evidence"]:
+    if status in ["resolved", "sufficient_confidence", "insufficient_evidence", "unresolved_conflict", "failed"]:
         return "generate_report"
     return "replan"
 
