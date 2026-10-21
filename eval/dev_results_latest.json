@@ -4,25 +4,25 @@
     "total_cases": 18,
     "diagnostic_cases_count": 6,
     "root_cause_accuracy": {
-      "ratio": "0 / 6",
-      "percentage": 0.0
+      "ratio": "6 / 6",
+      "percentage": 100.0
     },
     "abstention_cases_count": 12,
     "correct_abstention_rate": {
-      "ratio": "8 / 12",
-      "percentage": 66.67
-    },
-    "false_confidence_rate": {
-      "ratio": "4 / 12",
-      "percentage": 33.33
-    },
-    "citation_validity_l1": {
-      "ratio": "27 / 27",
+      "ratio": "12 / 12",
       "percentage": 100.0
     },
-    "avg_iterations": 2.0,
-    "avg_latency_sec": 0.0012,
-    "timestamp": "2026-10-21T16:37:07.613157+00:00"
+    "false_confidence_rate": {
+      "ratio": "0 / 12",
+      "percentage": 0.0
+    },
+    "citation_validity_l1": {
+      "ratio": "50 / 50",
+      "percentage": 100.0
+    },
+    "avg_iterations": 2.44,
+    "avg_latency_sec": 0.0014,
+    "timestamp": "2026-10-21T16:58:15.938563+00:00"
   },
   "results": [
     {
@@ -30,30 +30,30 @@
       "category": "clear_diagnosis",
       "expected_status": "resolved",
       "actual_status": "resolved",
-      "reported_cause": "confirmed root cause: max connections reached causing connection acquisition timeouts.",
+      "reported_cause": "confirmed root cause: db_pool_exhaustion - max connections reached causing connection acquisition timeouts.",
       "iterations": 1,
-      "latency_sec": 0.0026,
-      "outcome": "FAIL (Expected ['db_pool_exhaustion', 'database_connection_pool_exhaustion'], got 'confirmed root cause: max connections re...')"
+      "latency_sec": 0.002,
+      "outcome": "PASS (Diagnosed)"
     },
     {
       "case_id": "dev_002",
       "category": "clear_diagnosis",
       "expected_status": "resolved",
       "actual_status": "resolved",
-      "reported_cause": "confirmed root cause: invalid payment gateway endpoint url configuration after recent deployment release.",
-      "iterations": 1,
-      "latency_sec": 0.0008,
-      "outcome": "FAIL (Expected ['bad_deployment', 'invalid_gateway_url_configuration'], got 'confirmed root cause: invalid payment ga...')"
+      "reported_cause": "confirmed root cause: bad_deployment - invalid payment gateway endpoint url configuration after recent deployment release.",
+      "iterations": 2,
+      "latency_sec": 0.0022,
+      "outcome": "PASS (Diagnosed)"
     },
     {
       "case_id": "dev_003",
       "category": "clear_diagnosis",
       "expected_status": "resolved",
       "actual_status": "resolved",
-      "reported_cause": "confirmed root cause: high memory usage detected (92% heap utilized) causing response latency climbing.",
+      "reported_cause": "confirmed root cause: memory_leak - high memory usage detected (92% heap utilized) causing response latency climbing.",
       "iterations": 1,
-      "latency_sec": 0.0007,
-      "outcome": "FAIL (Expected ['memory_leak', 'heap_utilization_spike'], got 'confirmed root cause: high memory usage ...')"
+      "latency_sec": 0.0008,
+      "outcome": "PASS (Diagnosed)"
     },
     {
       "case_id": "dev_004",
@@ -62,7 +62,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0027,
+      "latency_sec": 0.0015,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -82,68 +82,68 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0014,
+      "latency_sec": 0.0015,
       "outcome": "PASS (Abstained)"
     },
     {
       "case_id": "dev_007",
       "category": "noisy_evidence",
       "expected_status": "resolved",
-      "actual_status": "insufficient_evidence",
-      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
-      "iterations": 3,
-      "latency_sec": 0.0013,
-      "outcome": "FAIL (Expected ['db_pool_exhaustion'], got 'insufficient evidence gathered to confir...')"
+      "actual_status": "resolved",
+      "reported_cause": "confirmed root cause: db_pool_exhaustion - max connections reached causing connection acquisition timeouts.",
+      "iterations": 1,
+      "latency_sec": 0.0006,
+      "outcome": "PASS (Diagnosed)"
     },
     {
       "case_id": "dev_008",
       "category": "noisy_evidence",
       "expected_status": "resolved",
       "actual_status": "resolved",
-      "reported_cause": "confirmed root cause: invalid payment gateway endpoint url configuration after recent deployment release.",
-      "iterations": 1,
-      "latency_sec": 0.0006,
-      "outcome": "FAIL (Expected ['bad_deployment'], got 'confirmed root cause: invalid payment ga...')"
+      "reported_cause": "confirmed root cause: bad_deployment - invalid payment gateway endpoint url configuration after recent deployment release.",
+      "iterations": 2,
+      "latency_sec": 0.0011,
+      "outcome": "PASS (Diagnosed)"
     },
     {
       "case_id": "dev_009",
       "category": "noisy_evidence",
       "expected_status": "resolved",
       "actual_status": "resolved",
-      "reported_cause": "confirmed root cause: high memory usage detected (92% heap utilized) causing response latency climbing.",
+      "reported_cause": "confirmed root cause: memory_leak - high memory usage detected (92% heap utilized) causing response latency climbing.",
       "iterations": 1,
-      "latency_sec": 0.0006,
-      "outcome": "FAIL (Expected ['memory_leak'], got 'confirmed root cause: high memory usage ...')"
+      "latency_sec": 0.0007,
+      "outcome": "PASS (Diagnosed)"
     },
     {
       "case_id": "dev_010",
       "category": "conflicting_evidence",
       "expected_status": "unresolved_conflict",
-      "actual_status": "resolved",
-      "reported_cause": "confirmed root cause: call to external payment gateway timed out after 30000ms latency spike.",
-      "iterations": 1,
-      "latency_sec": 0.0006,
-      "outcome": "FAIL (False Confidence: Declared resolved with 'confirmed root cause: call to ')"
+      "actual_status": "unresolved_conflict",
+      "reported_cause": "unresolved conflict: telemetry presents contradictory indicators for database connection pool exhaustion.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
     },
     {
       "case_id": "dev_011",
       "category": "conflicting_evidence",
       "expected_status": "unresolved_conflict",
-      "actual_status": "resolved",
-      "reported_cause": "confirmed root cause: invalid payment gateway endpoint url configuration after recent deployment release.",
-      "iterations": 1,
-      "latency_sec": 0.0006,
-      "outcome": "FAIL (False Confidence: Declared resolved with 'confirmed root cause: invalid ')"
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
     },
     {
       "case_id": "dev_012",
       "category": "conflicting_evidence",
       "expected_status": "unresolved_conflict",
-      "actual_status": "resolved",
-      "reported_cause": "confirmed root cause: high memory usage detected (92% heap utilized) causing response latency climbing.",
-      "iterations": 1,
-      "latency_sec": 0.0006,
-      "outcome": "FAIL (False Confidence: Declared resolved with 'confirmed root cause: high mem')"
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0015,
+      "outcome": "PASS (Abstained)"
     },
     {
       "case_id": "dev_013",
@@ -152,7 +152,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0013,
+      "latency_sec": 0.0015,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -162,7 +162,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0013,
+      "latency_sec": 0.0014,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -172,7 +172,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0013,
+      "latency_sec": 0.0014,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -182,7 +182,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0013,
+      "latency_sec": 0.0014,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -192,18 +192,416 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0017,
+      "latency_sec": 0.0018,
       "outcome": "PASS (Abstained)"
     },
     {
       "case_id": "dev_018",
       "category": "missing_diagnostic_source",
       "expected_status": "insufficient_evidence",
-      "actual_status": "resolved",
-      "reported_cause": "confirmed root cause: invalid payment gateway endpoint url configuration after recent deployment release.",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
+    }
+  ],
+  "traces": [
+    {
+      "incident_id": "dev_001",
+      "timestamp": "2026-10-21T16:58:15.910101+00:00",
+      "status": "resolved",
+      "degraded": false,
+      "confidence_score": 0.75,
       "iterations": 1,
-      "latency_sec": 0.0006,
-      "outcome": "FAIL (False Confidence: Declared resolved with 'confirmed root cause: invalid ')"
+      "latency": {
+        "total_ms": 1.99,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_002",
+      "timestamp": "2026-10-21T16:58:15.912740+00:00",
+      "status": "resolved",
+      "degraded": false,
+      "confidence_score": 0.75,
+      "iterations": 2,
+      "latency": {
+        "total_ms": 2.23,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_003",
+      "timestamp": "2026-10-21T16:58:15.913968+00:00",
+      "status": "resolved",
+      "degraded": false,
+      "confidence_score": 0.75,
+      "iterations": 1,
+      "latency": {
+        "total_ms": 0.79,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_004",
+      "timestamp": "2026-10-21T16:58:15.915821+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.54,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_005",
+      "timestamp": "2026-10-21T16:58:15.917686+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.58,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_006",
+      "timestamp": "2026-10-21T16:58:15.919496+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.45,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_007",
+      "timestamp": "2026-10-21T16:58:15.920425+00:00",
+      "status": "resolved",
+      "degraded": false,
+      "confidence_score": 0.75,
+      "iterations": 1,
+      "latency": {
+        "total_ms": 0.64,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_008",
+      "timestamp": "2026-10-21T16:58:15.921792+00:00",
+      "status": "resolved",
+      "degraded": false,
+      "confidence_score": 0.75,
+      "iterations": 2,
+      "latency": {
+        "total_ms": 1.1,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_009",
+      "timestamp": "2026-10-21T16:58:15.922749+00:00",
+      "status": "resolved",
+      "degraded": false,
+      "confidence_score": 0.75,
+      "iterations": 1,
+      "latency": {
+        "total_ms": 0.69,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_010",
+      "timestamp": "2026-10-21T16:58:15.924410+00:00",
+      "status": "unresolved_conflict",
+      "degraded": false,
+      "confidence_score": 0.75,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.39,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_011",
+      "timestamp": "2026-10-21T16:58:15.926144+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.45,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_012",
+      "timestamp": "2026-10-21T16:58:15.927953+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.49,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_013",
+      "timestamp": "2026-10-21T16:58:15.929721+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.48,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_014",
+      "timestamp": "2026-10-21T16:58:15.931415+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.45,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_015",
+      "timestamp": "2026-10-21T16:58:15.933033+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.37,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_016",
+      "timestamp": "2026-10-21T16:58:15.934608+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.4,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_017",
+      "timestamp": "2026-10-21T16:58:15.936733+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.76,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "dev_018",
+      "timestamp": "2026-10-21T16:58:15.938447+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.4,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
     }
   ]
 }

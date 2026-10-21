@@ -1,0 +1,607 @@
+{
+  "summary": {
+    "suite_name": "Frozen Holdout Suite",
+    "total_cases": 18,
+    "diagnostic_cases_count": 6,
+    "root_cause_accuracy": {
+      "ratio": "6 / 6",
+      "percentage": 100.0
+    },
+    "abstention_cases_count": 12,
+    "correct_abstention_rate": {
+      "ratio": "12 / 12",
+      "percentage": 100.0
+    },
+    "false_confidence_rate": {
+      "ratio": "0 / 12",
+      "percentage": 0.0
+    },
+    "citation_validity_l1": {
+      "ratio": "48 / 48",
+      "percentage": 100.0
+    },
+    "avg_iterations": 2.44,
+    "avg_latency_sec": 0.0014,
+    "timestamp": "2026-10-21T16:59:11.842605+00:00"
+  },
+  "results": [
+    {
+      "case_id": "hold_001",
+      "category": "clear_diagnosis",
+      "expected_status": "resolved",
+      "actual_status": "resolved",
+      "reported_cause": "confirmed root cause: downstream_timeout - call to external payment gateway timed out after 30000ms latency spike.",
+      "iterations": 1,
+      "latency_sec": 0.0022,
+      "outcome": "PASS (Diagnosed)"
+    },
+    {
+      "case_id": "hold_002",
+      "category": "clear_diagnosis",
+      "expected_status": "resolved",
+      "actual_status": "resolved",
+      "reported_cause": "confirmed root cause: db_pool_exhaustion - max connections reached causing connection acquisition timeouts.",
+      "iterations": 1,
+      "latency_sec": 0.0007,
+      "outcome": "PASS (Diagnosed)"
+    },
+    {
+      "case_id": "hold_003",
+      "category": "clear_diagnosis",
+      "expected_status": "resolved",
+      "actual_status": "resolved",
+      "reported_cause": "confirmed root cause: bad_deployment - invalid payment gateway endpoint url configuration after recent deployment release.",
+      "iterations": 2,
+      "latency_sec": 0.0021,
+      "outcome": "PASS (Diagnosed)"
+    },
+    {
+      "case_id": "hold_004",
+      "category": "insufficient_evidence",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0022,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "hold_005",
+      "category": "insufficient_evidence",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0017,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "hold_006",
+      "category": "insufficient_evidence",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0015,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "hold_007",
+      "category": "noisy_evidence",
+      "expected_status": "resolved",
+      "actual_status": "resolved",
+      "reported_cause": "confirmed root cause: downstream_timeout - call to external payment gateway timed out after 30000ms latency spike.",
+      "iterations": 1,
+      "latency_sec": 0.0007,
+      "outcome": "PASS (Diagnosed)"
+    },
+    {
+      "case_id": "hold_008",
+      "category": "noisy_evidence",
+      "expected_status": "resolved",
+      "actual_status": "resolved",
+      "reported_cause": "confirmed root cause: db_pool_exhaustion - max connections reached causing connection acquisition timeouts.",
+      "iterations": 1,
+      "latency_sec": 0.0007,
+      "outcome": "PASS (Diagnosed)"
+    },
+    {
+      "case_id": "hold_009",
+      "category": "noisy_evidence",
+      "expected_status": "resolved",
+      "actual_status": "resolved",
+      "reported_cause": "confirmed root cause: bad_deployment - invalid payment gateway endpoint url configuration after recent deployment release.",
+      "iterations": 2,
+      "latency_sec": 0.0012,
+      "outcome": "PASS (Diagnosed)"
+    },
+    {
+      "case_id": "hold_010",
+      "category": "conflicting_evidence",
+      "expected_status": "unresolved_conflict",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "hold_011",
+      "category": "conflicting_evidence",
+      "expected_status": "unresolved_conflict",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0015,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "hold_012",
+      "category": "conflicting_evidence",
+      "expected_status": "unresolved_conflict",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "hold_013",
+      "category": "red_herring",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "hold_014",
+      "category": "red_herring",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "hold_015",
+      "category": "red_herring",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "hold_016",
+      "category": "missing_diagnostic_source",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "hold_017",
+      "category": "missing_diagnostic_source",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "hold_018",
+      "category": "missing_diagnostic_source",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
+    }
+  ],
+  "traces": [
+    {
+      "incident_id": "hold_001",
+      "timestamp": "2026-10-21T16:59:11.814434+00:00",
+      "status": "resolved",
+      "degraded": false,
+      "confidence_score": 0.75,
+      "iterations": 1,
+      "latency": {
+        "total_ms": 2.18,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_002",
+      "timestamp": "2026-10-21T16:59:11.815605+00:00",
+      "status": "resolved",
+      "degraded": false,
+      "confidence_score": 0.75,
+      "iterations": 1,
+      "latency": {
+        "total_ms": 0.75,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_003",
+      "timestamp": "2026-10-21T16:59:11.818074+00:00",
+      "status": "resolved",
+      "degraded": false,
+      "confidence_score": 0.75,
+      "iterations": 2,
+      "latency": {
+        "total_ms": 2.09,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_004",
+      "timestamp": "2026-10-21T16:59:11.820579+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 2.22,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_005",
+      "timestamp": "2026-10-21T16:59:11.822520+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.68,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_006",
+      "timestamp": "2026-10-21T16:59:11.824277+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.51,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_007",
+      "timestamp": "2026-10-21T16:59:11.825235+00:00",
+      "status": "resolved",
+      "degraded": false,
+      "confidence_score": 0.75,
+      "iterations": 1,
+      "latency": {
+        "total_ms": 0.66,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_008",
+      "timestamp": "2026-10-21T16:59:11.826293+00:00",
+      "status": "resolved",
+      "degraded": false,
+      "confidence_score": 0.75,
+      "iterations": 1,
+      "latency": {
+        "total_ms": 0.65,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_009",
+      "timestamp": "2026-10-21T16:59:11.827745+00:00",
+      "status": "resolved",
+      "degraded": false,
+      "confidence_score": 0.75,
+      "iterations": 2,
+      "latency": {
+        "total_ms": 1.21,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_010",
+      "timestamp": "2026-10-21T16:59:11.829424+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.41,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_011",
+      "timestamp": "2026-10-21T16:59:11.831182+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.47,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_012",
+      "timestamp": "2026-10-21T16:59:11.832811+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.39,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_013",
+      "timestamp": "2026-10-21T16:59:11.834497+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.43,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_014",
+      "timestamp": "2026-10-21T16:59:11.836188+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.42,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_015",
+      "timestamp": "2026-10-21T16:59:11.837815+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.36,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_016",
+      "timestamp": "2026-10-21T16:59:11.839368+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.38,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_017",
+      "timestamp": "2026-10-21T16:59:11.840926+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.37,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_018",
+      "timestamp": "2026-10-21T16:59:11.842499+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.39,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    }
+  ]
+}

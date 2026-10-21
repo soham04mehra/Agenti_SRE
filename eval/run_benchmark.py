@@ -11,16 +11,65 @@ if str(BASE_DIR) not in sys.path:
 
 from agent.graph import incident_agent_app
 
+import argparse
+import json
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+import sys
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
+
+from agent.graph import incident_agent_app
+from agent.tracer import ExecutionTracer
+from services.payment_service import PaymentService
+
+def reset_service_logs(service_name: str = "payment_service"):
+    """Resets the active service log to prevent cross-incident telemetry bleeding."""
+    log_file = BASE_DIR / "data" / "logs" / f"{service_name}.log"
+    if log_file.exists():
+        with open(log_file, "w") as f:
+            f.write("")
+
+def setup_case_telemetry(case: dict, payment_service: PaymentService):
+    """Sets up the simulated microservice telemetry environment for the case."""
+    reset_service_logs("payment_service")
+    category = case.get("category")
+    expected_root_cause = case.get("expected_root_cause")
+    desc = case.get("incident_description", "").lower()
+
+    if category in ["clear_diagnosis", "noisy_evidence"]:
+        if expected_root_cause in ["db_pool_exhaustion", "bad_deployment", "memory_leak", "downstream_timeout"]:
+            payment_service.set_fault_mode(expected_root_cause)
+            payment_service.process_payment(user_id=f"usr_eval_{case.get('case_id')}", amount=99.0)
+    elif category == "red_herring":
+        payment_service.set_fault_mode("red_herring")
+        payment_service.process_payment(user_id=f"usr_eval_{case.get('case_id')}", amount=25.0)
+    elif category == "conflicting_evidence":
+        # Simulate active contradictory telemetry
+        if "gateway timeout" in desc:
+            payment_service.set_fault_mode("db_pool_exhaustion")
+        else:
+            payment_service.set_fault_mode(None)
+        payment_service.process_payment(user_id=f"usr_eval_{case.get('case_id')}", amount=45.0)
+    else:
+        # Default healthy baseline for insufficient evidence and missing source cases
+        payment_service.set_fault_mode(None)
+
 def evaluate_suite(dataset_dir: Path, suite_name: str = "Development Suite") -> dict:
     """
     Evaluates the agent workflow against a structured robustness dataset.
     Calculates exact counts and formal metrics defined in EVALUATION.md.
+    Records unified structured execution traces for each investigation.
     """
     case_files = sorted(list(dataset_dir.glob("*.json")))
     if not case_files:
         print(f"⚠️ No cases found in {dataset_dir}")
         return {}
 
+    payment_service = PaymentService()
     total_cases = len(case_files)
     diagnostic_cases = 0
     correct_diagnostic = 0
@@ -36,6 +85,7 @@ def evaluate_suite(dataset_dir: Path, suite_name: str = "Development Suite") -> 
     total_latency_sec = 0.0
 
     results = []
+    traces = []
 
     print(f"\n================ RUNNING {suite_name.upper()} ({total_cases} CASES) ================")
     print(f"Dataset path: {dataset_dir}\n")
@@ -48,6 +98,11 @@ def evaluate_suite(dataset_dir: Path, suite_name: str = "Development Suite") -> 
         category = case["category"]
         expected_status = case["expected_status"]
         allowed_causes = [c.lower() for c in case.get("allowed_root_causes", [])]
+
+        # 1. Setup telemetry state
+        setup_case_telemetry(case, payment_service)
+
+        tracer = ExecutionTracer(incident_id=case_id, model_name="gpt-4o-mini")
 
         initial_state = {
             "incident_id": case_id,
@@ -68,12 +123,16 @@ def evaluate_suite(dataset_dir: Path, suite_name: str = "Development Suite") -> 
             "iteration_count": 0,
             "max_iterations": 3,
             "status": "investigating",
+            "degraded": False,
             "final_report": None
         }
 
         start_time = time.time()
         final_state = incident_agent_app.invoke(initial_state)
         latency = time.time() - start_time
+
+        trace_data = tracer.finish_trace(final_state)
+        traces.append(trace_data)
 
         total_latency_sec += latency
         iterations = final_state.get("iteration_count", 1)
@@ -110,8 +169,7 @@ def evaluate_suite(dataset_dir: Path, suite_name: str = "Development Suite") -> 
         citations = final_state.get("evidence", [])
         for cit in citations:
             total_citations += 1
-            cit_path = cit.get("citation", "")
-            # If citation has a line number like :L66, strip it
+            cit_path = cit.get("source") or cit.get("citation", "")
             clean_path = cit_path.split(":")[0]
             if (BASE_DIR / clean_path).exists() or clean_path.startswith("deployments/") or clean_path.startswith("supabase/"):
                 valid_citations += 1
@@ -128,6 +186,9 @@ def evaluate_suite(dataset_dir: Path, suite_name: str = "Development Suite") -> 
             "latency_sec": round(latency, 4),
             "outcome": outcome
         })
+
+    # Reset telemetry to clean state after run
+    payment_service.set_fault_mode(None)
 
     # Metric calculations
     rca_ratio = f"{correct_diagnostic} / {diagnostic_cases}" if diagnostic_cases > 0 else "N/A"
@@ -162,7 +223,7 @@ def evaluate_suite(dataset_dir: Path, suite_name: str = "Development Suite") -> 
     print("\n================ SUMMARY METRICS ================")
     print(json.dumps(summary, indent=2))
 
-    return {"summary": summary, "results": results}
+    return {"summary": summary, "results": results, "traces": traces}
 
 def main():
     parser = argparse.ArgumentParser(description="Run Agentic SRE Robustness Benchmark")
