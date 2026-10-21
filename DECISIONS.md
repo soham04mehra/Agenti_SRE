@@ -76,3 +76,15 @@ This document records architectural, evaluation, and system design decisions mad
 - **Why this approach was selected**: Telemetry parsing directly inspects tool outputs (e.g., active database connection gauges, error rates, warning logs, git deployment metadata), extracts verbatim snippets for cryptographic citations, and cleanly flags conflicting evidence (e.g. latency spike without DB pool pressure) and missing diagnostic sources.
 - **Tradeoffs**: Diagnostic tool outputs must adhere to standardized structured payloads (`logs`, `metrics`, `deployments`, `code_results`).
 
+---
+
+### Record 007: Pure Logic Unit Testing for Confidence, Router Transitions, and Execution Tracing
+
+- **Decision**: Add isolated unit tests (`tests/test_confidence_and_tracing.py`) validating the mathematical boundaries of the confidence formula $S / (S + C + 1)$, contradiction penalties, ceiling caps (0.95), ranking logic, and execution tracer cost calculations.
+- **Why**: Tier 1 requirement 10 mandates that all pure deterministic logic must be validated with isolated unit tests without network calls, LLM dependencies, or mock flakiness.
+- **Alternatives considered**:
+  1. Relying exclusively on end-to-end benchmark integration runs: Rejected because end-to-end tests obscure boundary edge cases (e.g. exactly 3 supporting items hitting 0.75 vs 2 items hitting 0.67).
+  2. Mocking LangGraph runtime: Rejected in favor of directly testing pure functions (`calculate_confidence`, `route_after_confidence`, `normalize_status`, `finish_trace`).
+- **Why this approach was selected**: High speed (< 2ms total execution for 24 tests), zero dependencies, and deterministic validation of mathematical properties and state machine rules.
+- **Tradeoffs**: None. Pure unit tests maintain local developer velocity.
+
