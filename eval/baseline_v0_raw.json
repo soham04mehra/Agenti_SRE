@@ -1,0 +1,18 @@
+{
+  "total_incidents_evaluated": 24,
+  "root_cause_accuracy_pct": 100.0,
+  "retrieval_recall_pct": 100.0,
+  "retrieval_precision_pct": 100.0,
+  "false_confidence_rate_pct": 0.0,
+  "avg_iterations_per_incident": 1.0,
+  "avg_latency_seconds": 0.0,
+  "timestamp": "2026-10-21T16:10:25.751784+00:00",
+  "commit_sha": "3eaffd917ca153ca347c89d42c1b5a0a4e2cb6e1",
+  "git_tag": "baseline-v0",
+  "environment": {
+    "python_version": "3.13",
+    "supabase_connected": false,
+    "llm_invoked": false,
+    "mode": "local_fallback"
+  }
+}
