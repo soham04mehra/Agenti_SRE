@@ -1,0 +1,23 @@
+{
+  "case_id": "dev_002",
+  "incident_description": "Catastrophic 100% failure on all payment endpoints immediately following deployment release v2.4.1.",
+  "category": "clear_diagnosis",
+  "affected_service": "payment_service",
+  "expected_status": "resolved",
+  "expected_root_cause": "bad_deployment",
+  "allowed_root_causes": [
+    "bad_deployment",
+    "invalid_gateway_url_configuration"
+  ],
+  "supporting_evidence": [
+    "ConfigurationError: Invalid payment gateway endpoint URL",
+    "Deployment v2.4.1 modified PAYMENT_GATEWAY_URL"
+  ],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "fetch_logs",
+    "get_deployments"
+  ],
+  "difficulty": "medium",
+  "degraded_expected": false
+}

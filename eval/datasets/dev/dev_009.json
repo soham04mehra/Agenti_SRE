@@ -1,0 +1,21 @@
+{
+  "case_id": "dev_009",
+  "incident_description": "Steadily climbing latency accompanied by 92% heap utilization warnings and routine thread pool resizing notices.",
+  "category": "noisy_evidence",
+  "affected_service": "payment_service",
+  "expected_status": "resolved",
+  "expected_root_cause": "memory_leak",
+  "allowed_root_causes": [
+    "memory_leak"
+  ],
+  "supporting_evidence": [
+    "High memory usage detected: 92% heap utilized"
+  ],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "fetch_logs",
+    "query_metrics"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": false
+}

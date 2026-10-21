@@ -1,0 +1,21 @@
+{
+  "case_id": "hold_009",
+  "incident_description": "ConfigurationError invalid gateway URL after deployment v2.4.1 alongside routine Kubernetes liveness probe logs.",
+  "category": "noisy_evidence",
+  "affected_service": "payment_service",
+  "expected_status": "resolved",
+  "expected_root_cause": "bad_deployment",
+  "allowed_root_causes": [
+    "bad_deployment"
+  ],
+  "supporting_evidence": [
+    "ConfigurationError: Invalid payment gateway endpoint URL"
+  ],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "fetch_logs",
+    "get_deployments"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": false
+}

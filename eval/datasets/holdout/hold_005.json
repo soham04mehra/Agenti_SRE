@@ -1,0 +1,19 @@
+{
+  "case_id": "hold_005",
+  "incident_description": "Transient synthetic probe ping latency fluctuation on edge CDN node.",
+  "category": "insufficient_evidence",
+  "affected_service": "payment_service",
+  "expected_status": "insufficient_evidence",
+  "expected_root_cause": "none",
+  "allowed_root_causes": [
+    "none",
+    "insufficient_evidence"
+  ],
+  "supporting_evidence": [],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "query_metrics"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": false
+}

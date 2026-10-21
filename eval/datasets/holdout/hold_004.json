@@ -1,0 +1,19 @@
+{
+  "case_id": "hold_004",
+  "incident_description": "Support escalation: single enterprise user report of order delay during off-peak hours.",
+  "category": "insufficient_evidence",
+  "affected_service": "order_service",
+  "expected_status": "insufficient_evidence",
+  "expected_root_cause": "none",
+  "allowed_root_causes": [
+    "none",
+    "insufficient_evidence"
+  ],
+  "supporting_evidence": [],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "fetch_logs"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": false
+}

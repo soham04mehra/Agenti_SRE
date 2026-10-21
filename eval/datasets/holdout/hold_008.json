@@ -1,0 +1,21 @@
+{
+  "case_id": "hold_008",
+  "incident_description": "Database pool limit reached on payment service with intermittent redis cache miss notices in log stream.",
+  "category": "noisy_evidence",
+  "affected_service": "payment_service",
+  "expected_status": "resolved",
+  "expected_root_cause": "db_pool_exhaustion",
+  "allowed_root_causes": [
+    "db_pool_exhaustion"
+  ],
+  "supporting_evidence": [
+    "DB pool exhausted: max_connections=10 reached"
+  ],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "fetch_logs",
+    "query_metrics"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": false
+}

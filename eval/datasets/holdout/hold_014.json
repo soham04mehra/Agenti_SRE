@@ -1,0 +1,22 @@
+{
+  "case_id": "hold_014",
+  "incident_description": "Non-critical rate limit warning on internal metrics reporting agent, payment processing unaffected.",
+  "category": "red_herring",
+  "affected_service": "payment_service",
+  "expected_status": "insufficient_evidence",
+  "expected_root_cause": "none",
+  "allowed_root_causes": [
+    "none",
+    "insufficient_evidence"
+  ],
+  "supporting_evidence": [],
+  "contradicting_evidence": [
+    "error_rate=0.0"
+  ],
+  "expected_tool_sources": [
+    "fetch_logs",
+    "query_metrics"
+  ],
+  "difficulty": "medium",
+  "degraded_expected": false
+}

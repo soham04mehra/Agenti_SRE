@@ -1,0 +1,23 @@
+{
+  "case_id": "dev_003",
+  "incident_description": "Monitored memory leak: heap consumption reached 92% (1950MB/2048MB) with climbing response latency.",
+  "category": "clear_diagnosis",
+  "affected_service": "payment_service",
+  "expected_status": "resolved",
+  "expected_root_cause": "memory_leak",
+  "allowed_root_causes": [
+    "memory_leak",
+    "heap_utilization_spike"
+  ],
+  "supporting_evidence": [
+    "High memory usage detected: 92% heap utilized",
+    "memory_usage_mb=1950.0"
+  ],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "fetch_logs",
+    "query_metrics"
+  ],
+  "difficulty": "medium",
+  "degraded_expected": false
+}

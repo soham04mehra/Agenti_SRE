@@ -1,0 +1,21 @@
+{
+  "case_id": "hold_011",
+  "incident_description": "Alert claims recent deployment broke payment endpoint, but git commit log diff indicates only markdown documentation changes.",
+  "category": "conflicting_evidence",
+  "affected_service": "payment_service",
+  "expected_status": "unresolved_conflict",
+  "expected_root_cause": "unresolved",
+  "allowed_root_causes": [
+    "unresolved",
+    "insufficient_evidence"
+  ],
+  "supporting_evidence": [],
+  "contradicting_evidence": [
+    "config_diff contains only README update"
+  ],
+  "expected_tool_sources": [
+    "get_deployments"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": false
+}

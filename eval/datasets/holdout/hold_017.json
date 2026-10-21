@@ -1,0 +1,19 @@
+{
+  "case_id": "hold_017",
+  "incident_description": "Transaction processing failures reported, but payment service log file is empty.",
+  "category": "missing_diagnostic_source",
+  "affected_service": "payment_service",
+  "expected_status": "insufficient_evidence",
+  "expected_root_cause": "none",
+  "allowed_root_causes": [
+    "none",
+    "insufficient_evidence"
+  ],
+  "supporting_evidence": [],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "fetch_logs"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": true
+}

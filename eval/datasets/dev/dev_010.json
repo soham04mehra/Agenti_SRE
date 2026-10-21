@@ -1,0 +1,25 @@
+{
+  "case_id": "dev_010",
+  "incident_description": "Alert flags external gateway timeout, but metric telemetry shows dependency latency is healthy at 18ms while database connections are maxed at 10.",
+  "category": "conflicting_evidence",
+  "affected_service": "payment_service",
+  "expected_status": "unresolved_conflict",
+  "expected_root_cause": "unresolved",
+  "allowed_root_causes": [
+    "unresolved",
+    "insufficient_evidence",
+    "db_pool_exhaustion"
+  ],
+  "supporting_evidence": [
+    "db_connections_active=10"
+  ],
+  "contradicting_evidence": [
+    "dependency_latency_ms=18.0"
+  ],
+  "expected_tool_sources": [
+    "fetch_logs",
+    "query_metrics"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": false
+}

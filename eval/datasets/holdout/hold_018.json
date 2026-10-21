@@ -1,0 +1,19 @@
+{
+  "case_id": "hold_018",
+  "incident_description": "Order creation latency climbing, but deployment commit history is unavailable.",
+  "category": "missing_diagnostic_source",
+  "affected_service": "order_service",
+  "expected_status": "insufficient_evidence",
+  "expected_root_cause": "none",
+  "allowed_root_causes": [
+    "none",
+    "insufficient_evidence"
+  ],
+  "supporting_evidence": [],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "get_deployments"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": true
+}

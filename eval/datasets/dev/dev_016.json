@@ -1,0 +1,20 @@
+{
+  "case_id": "dev_016",
+  "incident_description": "Payment service degraded, but metrics snapshot repository is unavailable (404 Not Found).",
+  "category": "missing_diagnostic_source",
+  "affected_service": "payment_service",
+  "expected_status": "insufficient_evidence",
+  "expected_root_cause": "none",
+  "allowed_root_causes": [
+    "none",
+    "insufficient_evidence",
+    "db_pool_exhaustion"
+  ],
+  "supporting_evidence": [],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "query_metrics"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": true
+}

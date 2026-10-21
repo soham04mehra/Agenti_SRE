@@ -1,0 +1,22 @@
+{
+  "case_id": "hold_012",
+  "incident_description": "Alert signals severe heap exhaustion, but metrics indicate memory usage is at 12% and error logs show 403 Forbidden credential errors.",
+  "category": "conflicting_evidence",
+  "affected_service": "payment_service",
+  "expected_status": "unresolved_conflict",
+  "expected_root_cause": "unresolved",
+  "allowed_root_causes": [
+    "unresolved",
+    "insufficient_evidence"
+  ],
+  "supporting_evidence": [],
+  "contradicting_evidence": [
+    "memory_usage_mb=245.0"
+  ],
+  "expected_tool_sources": [
+    "query_metrics",
+    "fetch_logs"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": false
+}

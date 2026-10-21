@@ -1,0 +1,21 @@
+{
+  "case_id": "hold_007",
+  "incident_description": "External payment gateway timed out after 30000ms amidst background DNS lookup retry logs and telemetry flush notices.",
+  "category": "noisy_evidence",
+  "affected_service": "payment_service",
+  "expected_status": "resolved",
+  "expected_root_cause": "downstream_timeout",
+  "allowed_root_causes": [
+    "downstream_timeout"
+  ],
+  "supporting_evidence": [
+    "GatewayTimeout: Call to external payment gateway timed out after 30000ms"
+  ],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "fetch_logs",
+    "query_metrics"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": false
+}

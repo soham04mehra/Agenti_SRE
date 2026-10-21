@@ -1,0 +1,21 @@
+{
+  "case_id": "dev_007",
+  "incident_description": "Severe payment processing delays with DB connection acquisition errors amidst periodic cache eviction warnings and cron heartbeats.",
+  "category": "noisy_evidence",
+  "affected_service": "payment_service",
+  "expected_status": "resolved",
+  "expected_root_cause": "db_pool_exhaustion",
+  "allowed_root_causes": [
+    "db_pool_exhaustion"
+  ],
+  "supporting_evidence": [
+    "DB pool exhausted: max_connections=10 reached"
+  ],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "fetch_logs",
+    "query_metrics"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": false
+}

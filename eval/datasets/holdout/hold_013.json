@@ -1,0 +1,22 @@
+{
+  "case_id": "hold_013",
+  "incident_description": "Kafka consumer group rebalance in progress warning log, duration 220ms, overall system error rate remains 0.0%.",
+  "category": "red_herring",
+  "affected_service": "order_service",
+  "expected_status": "insufficient_evidence",
+  "expected_root_cause": "none",
+  "allowed_root_causes": [
+    "none",
+    "insufficient_evidence"
+  ],
+  "supporting_evidence": [],
+  "contradicting_evidence": [
+    "error_rate=0.0"
+  ],
+  "expected_tool_sources": [
+    "fetch_logs",
+    "query_metrics"
+  ],
+  "difficulty": "medium",
+  "degraded_expected": false
+}

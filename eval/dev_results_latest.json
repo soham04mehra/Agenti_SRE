@@ -1,0 +1,209 @@
+{
+  "summary": {
+    "suite_name": "Development Suite",
+    "total_cases": 18,
+    "diagnostic_cases_count": 6,
+    "root_cause_accuracy": {
+      "ratio": "0 / 6",
+      "percentage": 0.0
+    },
+    "abstention_cases_count": 12,
+    "correct_abstention_rate": {
+      "ratio": "8 / 12",
+      "percentage": 66.67
+    },
+    "false_confidence_rate": {
+      "ratio": "4 / 12",
+      "percentage": 33.33
+    },
+    "citation_validity_l1": {
+      "ratio": "27 / 27",
+      "percentage": 100.0
+    },
+    "avg_iterations": 2.0,
+    "avg_latency_sec": 0.0012,
+    "timestamp": "2026-10-21T16:17:38.069075+00:00"
+  },
+  "results": [
+    {
+      "case_id": "dev_001",
+      "category": "clear_diagnosis",
+      "expected_status": "resolved",
+      "actual_status": "sufficient_confidence",
+      "reported_cause": "confirmed root cause: max connections reached causing connection acquisition timeouts.",
+      "iterations": 1,
+      "latency_sec": 0.0025,
+      "outcome": "FAIL (Expected ['db_pool_exhaustion', 'database_connection_pool_exhaustion'], got 'confirmed root cause: max connections re...')"
+    },
+    {
+      "case_id": "dev_002",
+      "category": "clear_diagnosis",
+      "expected_status": "resolved",
+      "actual_status": "sufficient_confidence",
+      "reported_cause": "confirmed root cause: invalid payment gateway endpoint url configuration after recent deployment release.",
+      "iterations": 1,
+      "latency_sec": 0.0007,
+      "outcome": "FAIL (Expected ['bad_deployment', 'invalid_gateway_url_configuration'], got 'confirmed root cause: invalid payment ga...')"
+    },
+    {
+      "case_id": "dev_003",
+      "category": "clear_diagnosis",
+      "expected_status": "resolved",
+      "actual_status": "sufficient_confidence",
+      "reported_cause": "confirmed root cause: high memory usage detected (92% heap utilized) causing response latency climbing.",
+      "iterations": 1,
+      "latency_sec": 0.0007,
+      "outcome": "FAIL (Expected ['memory_leak', 'heap_utilization_spike'], got 'confirmed root cause: high memory usage ...')"
+    },
+    {
+      "case_id": "dev_004",
+      "category": "insufficient_evidence",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0025,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "dev_005",
+      "category": "insufficient_evidence",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "dev_006",
+      "category": "insufficient_evidence",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "dev_007",
+      "category": "noisy_evidence",
+      "expected_status": "resolved",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0013,
+      "outcome": "FAIL (Expected ['db_pool_exhaustion'], got 'insufficient evidence gathered to confir...')"
+    },
+    {
+      "case_id": "dev_008",
+      "category": "noisy_evidence",
+      "expected_status": "resolved",
+      "actual_status": "sufficient_confidence",
+      "reported_cause": "confirmed root cause: invalid payment gateway endpoint url configuration after recent deployment release.",
+      "iterations": 1,
+      "latency_sec": 0.0006,
+      "outcome": "FAIL (Expected ['bad_deployment'], got 'confirmed root cause: invalid payment ga...')"
+    },
+    {
+      "case_id": "dev_009",
+      "category": "noisy_evidence",
+      "expected_status": "resolved",
+      "actual_status": "sufficient_confidence",
+      "reported_cause": "confirmed root cause: high memory usage detected (92% heap utilized) causing response latency climbing.",
+      "iterations": 1,
+      "latency_sec": 0.0006,
+      "outcome": "FAIL (Expected ['memory_leak'], got 'confirmed root cause: high memory usage ...')"
+    },
+    {
+      "case_id": "dev_010",
+      "category": "conflicting_evidence",
+      "expected_status": "unresolved_conflict",
+      "actual_status": "sufficient_confidence",
+      "reported_cause": "confirmed root cause: call to external payment gateway timed out after 30000ms latency spike.",
+      "iterations": 1,
+      "latency_sec": 0.0006,
+      "outcome": "FAIL (False Confidence: Declared sufficient_confidence with 'confirmed root cause: call to ')"
+    },
+    {
+      "case_id": "dev_011",
+      "category": "conflicting_evidence",
+      "expected_status": "unresolved_conflict",
+      "actual_status": "sufficient_confidence",
+      "reported_cause": "confirmed root cause: invalid payment gateway endpoint url configuration after recent deployment release.",
+      "iterations": 1,
+      "latency_sec": 0.0006,
+      "outcome": "FAIL (False Confidence: Declared sufficient_confidence with 'confirmed root cause: invalid ')"
+    },
+    {
+      "case_id": "dev_012",
+      "category": "conflicting_evidence",
+      "expected_status": "unresolved_conflict",
+      "actual_status": "sufficient_confidence",
+      "reported_cause": "confirmed root cause: high memory usage detected (92% heap utilized) causing response latency climbing.",
+      "iterations": 1,
+      "latency_sec": 0.0006,
+      "outcome": "FAIL (False Confidence: Declared sufficient_confidence with 'confirmed root cause: high mem')"
+    },
+    {
+      "case_id": "dev_013",
+      "category": "red_herring",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0013,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "dev_014",
+      "category": "red_herring",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "dev_015",
+      "category": "red_herring",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0013,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "dev_016",
+      "category": "missing_diagnostic_source",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0013,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "dev_017",
+      "category": "missing_diagnostic_source",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "insufficient_evidence",
+      "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
+      "iterations": 3,
+      "latency_sec": 0.0014,
+      "outcome": "PASS (Abstained)"
+    },
+    {
+      "case_id": "dev_018",
+      "category": "missing_diagnostic_source",
+      "expected_status": "insufficient_evidence",
+      "actual_status": "sufficient_confidence",
+      "reported_cause": "confirmed root cause: invalid payment gateway endpoint url configuration after recent deployment release.",
+      "iterations": 1,
+      "latency_sec": 0.0006,
+      "outcome": "FAIL (False Confidence: Declared sufficient_confidence with 'confirmed root cause: invalid ')"
+    }
+  ]
+}

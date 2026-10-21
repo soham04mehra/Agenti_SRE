@@ -1,0 +1,24 @@
+{
+  "case_id": "hold_001",
+  "incident_description": "Critical latency spike: External payment gateway calls timing out after 30000ms with 80% error rate.",
+  "category": "clear_diagnosis",
+  "affected_service": "payment_service",
+  "expected_status": "resolved",
+  "expected_root_cause": "downstream_timeout",
+  "allowed_root_causes": [
+    "downstream_timeout",
+    "gateway_timeout",
+    "dependency_latency"
+  ],
+  "supporting_evidence": [
+    "GatewayTimeout: Call to external payment gateway timed out after 30000ms",
+    "dependency_latency_ms=30000.0"
+  ],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "fetch_logs",
+    "query_metrics"
+  ],
+  "difficulty": "medium",
+  "degraded_expected": false
+}

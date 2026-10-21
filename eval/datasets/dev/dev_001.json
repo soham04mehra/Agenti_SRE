@@ -1,0 +1,23 @@
+{
+  "case_id": "dev_001",
+  "incident_description": "Checkout service degraded: persistent connection acquisition timeouts and elevated 500 error rates on payment_service.",
+  "category": "clear_diagnosis",
+  "affected_service": "payment_service",
+  "expected_status": "resolved",
+  "expected_root_cause": "db_pool_exhaustion",
+  "allowed_root_causes": [
+    "db_pool_exhaustion",
+    "database_connection_pool_exhaustion"
+  ],
+  "supporting_evidence": [
+    "DB pool exhausted: max_connections=10 reached",
+    "db_connections_active=10"
+  ],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "fetch_logs",
+    "query_metrics"
+  ],
+  "difficulty": "medium",
+  "degraded_expected": false
+}

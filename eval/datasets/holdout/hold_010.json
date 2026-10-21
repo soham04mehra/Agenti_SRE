@@ -1,0 +1,25 @@
+{
+  "case_id": "hold_010",
+  "incident_description": "Alert asserts database pool exhaustion, but telemetry confirms DB active connections = 2/10 and external dependency latency is 30500ms.",
+  "category": "conflicting_evidence",
+  "affected_service": "payment_service",
+  "expected_status": "unresolved_conflict",
+  "expected_root_cause": "unresolved",
+  "allowed_root_causes": [
+    "unresolved",
+    "insufficient_evidence",
+    "downstream_timeout"
+  ],
+  "supporting_evidence": [
+    "dependency_latency_ms=30000.0"
+  ],
+  "contradicting_evidence": [
+    "db_connections_active=2"
+  ],
+  "expected_tool_sources": [
+    "query_metrics",
+    "fetch_logs"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": false
+}

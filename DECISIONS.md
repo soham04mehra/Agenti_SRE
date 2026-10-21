@@ -25,3 +25,16 @@ This document records architectural, evaluation, and system design decisions mad
   2. Omitting baseline recording: Rejected because engineering credibility requires showing the evolution from baseline to hardened system.
 - **Why this approach was selected**: A frozen baseline provides empirical evidence of the system's actual behavior before hardening.
 - **Tradeoffs**: The baseline clearly documents that the initial "100% accuracy / 0.0s latency" resulted from static keyword matching rather than real agentic reasoning.
+
+---
+
+### Record 003: Robustness Evaluation Suite & Frozen Holdout Partitioning
+
+- **Decision**: Expand evaluation from 24 synthetic single-fault cases to a 36-case robustness benchmark partitioned into an 18-case development set (`eval/datasets/dev/`) and an 18-case frozen holdout set (`eval/datasets/holdout/`), tagged as `holdout-v1`.
+- **Why**: Rule 3 and Phase 2 require testing the system on difficult real-world failure modes (insufficient evidence, noisy logs, conflicting telemetry, red herrings, missing diagnostic sources) while preventing data leakage and overfitting.
+- **Alternatives considered**:
+  1. Evaluating solely on the original 24 ground-truth cases: Rejected because it leaves the system vulnerable to accusations of memorization and gives a false 100% confidence signal.
+  2. Running benchmarks without a holdout split: Rejected because tuning directly against the test set invalidates evaluation rigor.
+  3. LLM-generated dynamic cases at runtime: Rejected for holdout because reproducibility requires an immutable, frozen dataset with deterministic grading.
+- **Why this approach was selected**: Equal distribution across 6 categories (3 dev / 3 holdout each) provides sufficient sample size to evaluate both definitive diagnosis and abstention safety, with zero holdout contamination.
+- **Tradeoffs**: Decreases reported benchmark percentages initially (from 100% down to 0% RCA / 66.7% CAR on the unhardened system), but provides an authentic, defensible foundation.

@@ -1,0 +1,22 @@
+{
+  "case_id": "dev_014",
+  "incident_description": "Garbage collector logging minor cycle pause of 110ms with zero impact on payment throughput.",
+  "category": "red_herring",
+  "affected_service": "payment_service",
+  "expected_status": "insufficient_evidence",
+  "expected_root_cause": "none",
+  "allowed_root_causes": [
+    "none",
+    "insufficient_evidence"
+  ],
+  "supporting_evidence": [],
+  "contradicting_evidence": [
+    "error_rate=0.0"
+  ],
+  "expected_tool_sources": [
+    "fetch_logs",
+    "query_metrics"
+  ],
+  "difficulty": "medium",
+  "degraded_expected": false
+}

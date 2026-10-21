@@ -1,0 +1,20 @@
+{
+  "case_id": "dev_004",
+  "incident_description": "User reported occasional sluggish checkout experience during peak morning traffic.",
+  "category": "insufficient_evidence",
+  "affected_service": "payment_service",
+  "expected_status": "insufficient_evidence",
+  "expected_root_cause": "none",
+  "allowed_root_causes": [
+    "none",
+    "insufficient_evidence"
+  ],
+  "supporting_evidence": [],
+  "contradicting_evidence": [],
+  "expected_tool_sources": [
+    "fetch_logs",
+    "query_metrics"
+  ],
+  "difficulty": "hard",
+  "degraded_expected": false
+}
