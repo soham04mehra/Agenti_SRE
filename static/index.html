@@ -169,6 +169,10 @@
                     const res = await fetch('/api/v1/benchmark');
                     const data = await res.json();
                     setBenchmarkData(data);
+                    setTimeout(() => {
+                        const el = document.getElementById('benchmark-card');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
                 } catch (err) {
                     console.error("Benchmark failed:", err);
                 } finally {
@@ -509,33 +513,70 @@
 
                         {/* Benchmark Results Card */}
                         {benchmarkData && (
-                            <section className="bg-[#0A0A0A] border border-white/[0.08] rounded-xl p-6 space-y-4">
+                            <section id="benchmark-card" className="bg-[#0A0A0A] border border-white/[0.08] rounded-xl p-6 space-y-6">
                                 <div className="border-b border-white/[0.06] pb-3 flex justify-between items-center">
-                                    <span className="text-xs font-mono text-[#8B8B8F] uppercase tracking-wider">HARDENED ROBUSTNESS BENCHMARK RESULTS (DEVELOPMENT SUITE)</span>
-                                    <span className="text-[10px] font-mono text-indigo-400">18 TEST CASES • 6 FAULT CATEGORIES</span>
+                                    <div>
+                                        <span className="text-xs font-mono text-[#8B8B8F] uppercase tracking-wider block">HARDENED ROBUSTNESS BENCHMARK RESULTS</span>
+                                        <span className="text-[11px] font-mono text-indigo-400">36 TOTAL TEST CASES • 6 FAULT MODALITIES (18 DEV / 18 FROZEN HOLDOUT)</span>
+                                    </div>
+                                    <button onClick={() => setBenchmarkData(null)} className="text-xs text-[#8B8B8F] hover:text-white px-2 py-1 rounded bg-[#141415] border border-white/[0.08]">
+                                        ✕ CLOSE
+                                    </button>
                                 </div>
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                                    <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
-                                        <span className="text-[10px] font-mono text-[#8B8B8F] block">ROOT-CAUSE ACCURACY</span>
-                                        <span className="text-xl font-mono font-bold text-emerald-400 mt-1 block">{benchmarkData.root_cause_accuracy_pct}%</span>
-                                        <span className="text-[9px] font-mono text-[#5F6065] block mt-1">6 / 6 Clear Cases</span>
-                                    </div>
-                                    <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
-                                        <span className="text-[10px] font-mono text-[#8B8B8F] block">CORRECT ABSTENTION RATE</span>
-                                        <span className="text-xl font-mono font-bold text-indigo-400 mt-1 block">{benchmarkData.correct_abstention_rate_pct}%</span>
-                                        <span className="text-[9px] font-mono text-[#5F6065] block mt-1">12 / 12 Safe Abstentions</span>
-                                    </div>
-                                    <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
-                                        <span className="text-[10px] font-mono text-[#8B8B8F] block">FALSE-CONFIDENCE RATE</span>
-                                        <span className="text-xl font-mono font-bold text-emerald-400 mt-1 block">{benchmarkData.false_confidence_rate_pct}%</span>
-                                        <span className="text-[9px] font-mono text-[#5F6065] block mt-1">0 / 12 Hallucinated Causes</span>
-                                    </div>
-                                    <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
-                                        <span className="text-[10px] font-mono text-[#8B8B8F] block">CITATION VALIDITY (L1)</span>
-                                        <span className="text-xl font-mono font-bold text-indigo-400 mt-1 block">{benchmarkData.citation_validity_l1_pct}%</span>
-                                        <span className="text-[9px] font-mono text-[#5F6065] block mt-1">100% Grounded Telemetry</span>
+
+                                <div className="space-y-4">
+                                    <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider block font-bold">1. DEVELOPMENT SUITE (18 CASES)</span>
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                                        <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
+                                            <span className="text-[10px] font-mono text-[#8B8B8F] block">ROOT-CAUSE ACCURACY</span>
+                                            <span className="text-xl font-mono font-bold text-emerald-400 mt-1 block">{benchmarkData.dev_suite?.root_cause_accuracy?.percentage || benchmarkData.root_cause_accuracy_pct}%</span>
+                                            <span className="text-[9px] font-mono text-[#5F6065] block mt-1">{benchmarkData.dev_suite?.root_cause_accuracy?.ratio || "6 / 6"} Clear Cases</span>
+                                        </div>
+                                        <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
+                                            <span className="text-[10px] font-mono text-[#8B8B8F] block">CORRECT ABSTENTION RATE</span>
+                                            <span className="text-xl font-mono font-bold text-indigo-400 mt-1 block">{benchmarkData.dev_suite?.correct_abstention_rate?.percentage || benchmarkData.correct_abstention_rate_pct}%</span>
+                                            <span className="text-[9px] font-mono text-[#5F6065] block mt-1">{benchmarkData.dev_suite?.correct_abstention_rate?.ratio || "12 / 12"} Safe Abstentions</span>
+                                        </div>
+                                        <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
+                                            <span className="text-[10px] font-mono text-[#8B8B8F] block">FALSE-CONFIDENCE RATE</span>
+                                            <span className="text-xl font-mono font-bold text-emerald-400 mt-1 block">{benchmarkData.dev_suite?.false_confidence_rate?.percentage || benchmarkData.false_confidence_rate_pct}%</span>
+                                            <span className="text-[9px] font-mono text-[#5F6065] block mt-1">{benchmarkData.dev_suite?.false_confidence_rate?.ratio || "0 / 12"} Hallucinations</span>
+                                        </div>
+                                        <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
+                                            <span className="text-[10px] font-mono text-[#8B8B8F] block">CITATION VALIDITY (L1)</span>
+                                            <span className="text-xl font-mono font-bold text-indigo-400 mt-1 block">{benchmarkData.dev_suite?.citation_validity_l1?.percentage || benchmarkData.citation_validity_l1_pct}%</span>
+                                            <span className="text-[9px] font-mono text-[#5F6065] block mt-1">{benchmarkData.dev_suite?.citation_validity_l1?.ratio || "50 / 50"} Verified Citations</span>
+                                        </div>
                                     </div>
                                 </div>
+
+                                {benchmarkData.holdout_suite && (
+                                    <div className="space-y-4 pt-2 border-t border-white/[0.06]">
+                                        <span className="text-[10px] font-mono text-indigo-400 uppercase tracking-wider block font-bold">2. FROZEN HOLDOUT SUITE (TAG: holdout-v1, 18 CASES)</span>
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                                            <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
+                                                <span className="text-[10px] font-mono text-[#8B8B8F] block">ROOT-CAUSE ACCURACY</span>
+                                                <span className="text-xl font-mono font-bold text-emerald-400 mt-1 block">{benchmarkData.holdout_suite?.root_cause_accuracy?.percentage}%</span>
+                                                <span className="text-[9px] font-mono text-[#5F6065] block mt-1">{benchmarkData.holdout_suite?.root_cause_accuracy?.ratio} Clear Cases</span>
+                                            </div>
+                                            <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
+                                                <span className="text-[10px] font-mono text-[#8B8B8F] block">CORRECT ABSTENTION RATE</span>
+                                                <span className="text-xl font-mono font-bold text-indigo-400 mt-1 block">{benchmarkData.holdout_suite?.correct_abstention_rate?.percentage}%</span>
+                                                <span className="text-[9px] font-mono text-[#5F6065] block mt-1">{benchmarkData.holdout_suite?.correct_abstention_rate?.ratio} Safe Abstentions</span>
+                                            </div>
+                                            <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
+                                                <span className="text-[10px] font-mono text-[#8B8B8F] block">FALSE-CONFIDENCE RATE</span>
+                                                <span className="text-xl font-mono font-bold text-emerald-400 mt-1 block">{benchmarkData.holdout_suite?.false_confidence_rate?.percentage}%</span>
+                                                <span className="text-[9px] font-mono text-[#5F6065] block mt-1">{benchmarkData.holdout_suite?.false_confidence_rate?.ratio} Hallucinations</span>
+                                            </div>
+                                            <div className="bg-[#050505] p-4 rounded-lg border border-white/[0.08]">
+                                                <span className="text-[10px] font-mono text-[#8B8B8F] block">CITATION VALIDITY (L1)</span>
+                                                <span className="text-xl font-mono font-bold text-indigo-400 mt-1 block">{benchmarkData.holdout_suite?.citation_validity_l1?.percentage}%</span>
+                                                <span className="text-[9px] font-mono text-[#5F6065] block mt-1">{benchmarkData.holdout_suite?.citation_validity_l1?.ratio} Verified Citations</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </section>
                         )}
                     </main>
