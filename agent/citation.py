@@ -15,6 +15,20 @@ class CitationRecord:
         return hashlib.sha256(normalized.encode("utf-8")).hexdigest()[:16]
 
     @staticmethod
+    def infer_source_type(source: str) -> str:
+        """Infers the telemetry modality from the citation source path."""
+        s = source.lower()
+        if ".log" in s or "log" in s:
+            return "logs"
+        elif ".json" in s or "metric" in s:
+            return "metrics"
+        elif "deploy" in s:
+            return "deployments"
+        elif ".py" in s or "services/" in s:
+            return "codebase"
+        return "telemetry"
+
+    @staticmethod
     def create_citation(
         source: str,
         snippet: str,
@@ -22,11 +36,14 @@ class CitationRecord:
         hypothesis_id: str,
         summary: str,
         line_start: Optional[int] = None,
-        line_end: Optional[int] = None
+        line_end: Optional[int] = None,
+        source_type: Optional[str] = None
     ) -> Dict[str, Any]:
         """Creates a tamper-evident citation dictionary."""
+        resolved_source_type = source_type or CitationRecord.infer_source_type(source)
         return {
             "source": source,
+            "source_type": resolved_source_type,
             "line_start": line_start,
             "line_end": line_end,
             "snippet": snippet.strip(),
@@ -35,6 +52,24 @@ class CitationRecord:
             "hypothesis_id": hypothesis_id,
             "summary": summary
         }
+
+    @staticmethod
+    def group_by_source_type(evidence_list: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:
+        """Groups evidence records by their telemetry modality."""
+        groups: Dict[str, List[Dict[str, Any]]] = {
+            "logs": [],
+            "metrics": [],
+            "deployments": [],
+            "codebase": [],
+            "other": []
+        }
+        for item in evidence_list:
+            st = item.get("source_type") or CitationRecord.infer_source_type(item.get("source", ""))
+            if st in groups:
+                groups[st].append(item)
+            else:
+                groups["other"].append(item)
+        return groups
 
 class CitationValidator:
     """

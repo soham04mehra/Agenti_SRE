@@ -419,6 +419,7 @@ def generate_report(state: IncidentState) -> Dict[str, Any]:
 
     supporting = [e for e in evidence if e.get("classification") == "supports"]
     contradicting = [e for e in evidence if e.get("classification") == "contradicts"]
+    evidence_by_source = CitationRecord.group_by_source_type(evidence)
 
     if status == "insufficient_evidence":
         report = {
@@ -428,6 +429,7 @@ def generate_report(state: IncidentState) -> Dict[str, Any]:
             "root_cause_summary": "Insufficient evidence gathered to confirm a single definitive root cause.",
             "recommended_actions": ["Run manual heap profiling", "Verify network firewall logs", "Inspect upstream service telemetry"],
             "evidence": evidence,
+            "evidence_by_source": evidence_by_source,
             "degraded": degraded
         }
     elif status == "unresolved_conflict":
@@ -440,6 +442,7 @@ def generate_report(state: IncidentState) -> Dict[str, Any]:
             "conflicting_evidence": contradicting,
             "recommended_actions": ["Manual SRE triage required to reconcile contradictory telemetry signals before applying remediation."],
             "evidence": evidence,
+            "evidence_by_source": evidence_by_source,
             "degraded": degraded
         }
     elif status == "failed":
@@ -450,6 +453,7 @@ def generate_report(state: IncidentState) -> Dict[str, Any]:
             "root_cause_summary": "Diagnostic investigation halted due to system or tool infrastructure failure.",
             "recommended_actions": ["Verify observability tool agents, network reachability, and rerun investigation."],
             "evidence": evidence,
+            "evidence_by_source": evidence_by_source,
             "degraded": True
         }
     else:
@@ -462,6 +466,7 @@ def generate_report(state: IncidentState) -> Dict[str, Any]:
             "root_cause_summary": f"Confirmed Root Cause: {rc_id} - {top_hypo.get('description') if top_hypo else 'System failure'}",
             "root_cause_id": rc_id,
             "supporting_evidence": supporting,
+            "evidence_by_source": evidence_by_source,
             "recommended_actions": ["Execute targeted remediation action based on evidence."],
             "degraded": degraded
         }

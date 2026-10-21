@@ -88,3 +88,16 @@ This document records architectural, evaluation, and system design decisions mad
 - **Why this approach was selected**: High speed (< 2ms total execution for 24 tests), zero dependencies, and deterministic validation of mathematical properties and state machine rules.
 - **Tradeoffs**: None. Pure unit tests maintain local developer velocity.
 
+---
+
+### Record 008: Evidence Modality Classification & Source Grouping
+
+- **Decision**: Extend `CitationRecord` with deterministic source modality inference (`infer_source_type`: `logs`, `metrics`, `deployments`, `codebase`) and source grouping (`group_by_source_type`). Include source-grouped evidence breakdown in the final report payload.
+- **Why**: Phase 7 (Tier 2 requirement 1) requires evidence to be structured by diagnostic modality. In SRE root-cause investigations, a critical interview challenge is: "What stops 10 duplicate log lines from inflating your confidence score to 95%?" Deduplication by summary/snippet combined with modality grouping proves that an RCA is corroborated across independent diagnostic sources (e.g., metric spikes + error logs + deployment diffs) rather than repetitive log spam.
+- **Alternatives considered**:
+  1. Letting the LLM classify evidence types: Rejected as non-deterministic, slow, and prone to hallucinations.
+  2. Freeform citation strings without modality tagging: Rejected because downstream consumers (UI, SRE alert aggregators) cannot group evidence by source.
+- **Why this approach was selected**: Clean, sub-millisecond regex/path classification that maps citations directly to observability silos.
+- **Tradeoffs**: Citations must adhere to known path conventions or default to the `other`/`telemetry` category.
+
+

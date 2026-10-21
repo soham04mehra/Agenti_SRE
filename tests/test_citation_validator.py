@@ -108,5 +108,25 @@ class TestCitationValidator(unittest.TestCase):
         self.assertTrue(report["level_2_content"]["passed"])
         self.assertTrue(report["level_3_semantic"]["passed"])
 
+    def test_infer_source_type(self):
+        """CitationRecord accurately classifies source modalities."""
+        self.assertEqual(CitationRecord.infer_source_type("data/logs/payment_service.log"), "logs")
+        self.assertEqual(CitationRecord.infer_source_type("data/metrics/payment_service.json"), "metrics")
+        self.assertEqual(CitationRecord.infer_source_type("deployments/payment_service/v1.2.4"), "deployments")
+        self.assertEqual(CitationRecord.infer_source_type("services/payment_service.py"), "codebase")
+
+    def test_group_by_source_type(self):
+        """group_by_source_type clusters citations by their modality."""
+        ev = [
+            CitationRecord.create_citation("data/logs/app.log", "error", "supports", "h1", "log ev"),
+            CitationRecord.create_citation("data/metrics/app.json", "err=1", "supports", "h1", "metric ev"),
+            CitationRecord.create_citation("services/app.py", "def pay():", "supports", "h1", "code ev")
+        ]
+        groups = CitationRecord.group_by_source_type(ev)
+        self.assertEqual(len(groups["logs"]), 1)
+        self.assertEqual(len(groups["metrics"]), 1)
+        self.assertEqual(len(groups["codebase"]), 1)
+        self.assertEqual(len(groups["deployments"]), 0)
+
 if __name__ == "__main__":
     unittest.main()
