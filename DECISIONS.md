@@ -112,5 +112,22 @@ This document records architectural, evaluation, and system design decisions mad
 - **Why this approach was selected**: Establishes transparent accountability and provides a direct reference for technical interviews.
 - **Tradeoffs**: None. Increases project documentation depth.
 
+---
+
+### Record 010: SRE Observability UI Hardening & Evidence Sufficiency Framing
+
+- **Decision**: Update `static/index.html` to replace the binary "RESOLVED" badge and uncalibrated "100% confidence" label with:
+  1. 4 explicit status badges (`RESOLVED`, `INSUFFICIENT EVIDENCE`, `UNRESOLVED CONFLICT`, `INVESTIGATION FAILED`) plus `DEGRADED` telemetry indicator.
+  2. Modality filter tabs (`logs`, `metrics`, `codebase`, `deployments`) and cryptographic SHA-256 snippet hash displays.
+  3. Relabeling "Confidence" to "Evidence Sufficiency Score" with explicit mathematical documentation of the $S / (S + C + 1)$ heuristic.
+  4. Benchmark presentation showing exact fractions ($6/6$ RCA, $12/12$ CAR, $0/12$ FCR) across the 36-case robustness suite.
+- **Why**: Phase 9 (Tier 2 requirement 4) and interview readiness require the frontend presentation to reflect technical reality rather than marketing hype. A Senior SRE expects to see why an investigation abstained or flagged contradictory signals.
+- **Alternatives considered**:
+  1. Complete frontend rewrite in Next.js: Rejected because it violates Rule 8 (unnecessary rewrite/dependencies) and risks breaking Vercel static serving.
+  2. Leaving UI unchanged: Rejected because the UI previously hardcoded "RESOLVED" and claimed uncalibrated 100% certainty.
+- **Why this approach was selected**: Preserves lightweight, zero-build React 18 single-file architecture while providing engineering-grade SRE observability.
+- **Tradeoffs**: Relies on browser-side React 18 CDN for zero-build execution.
+
+
 
 
