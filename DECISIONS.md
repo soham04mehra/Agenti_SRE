@@ -128,6 +128,24 @@ This document records architectural, evaluation, and system design decisions mad
 - **Why this approach was selected**: Preserves lightweight, zero-build React 18 single-file architecture while providing engineering-grade SRE observability.
 - **Tradeoffs**: Relies on browser-side React 18 CDN for zero-build execution.
 
+---
+
+### Record 011: Repository Hygiene, Secret Untracking & Honest Technical Documentation
+
+- **Decision**: 
+  1. Add `.gitignore` ignoring `.env`, `__pycache__`, `.DS_Store`, and untrack cached bytecode and secrets from git index. Provide `.env.example`.
+  2. Rewrite `README.md` to eliminate marketing hyperbole ("autonomous", "without unverified AI hallucination", "Awwwards-level UI", unqualified "sub-second SLA", "100% on everything").
+  3. Frame the confidence metric accurately as a deterministic "Evidence Sufficiency Score" with mathematical boundary tables.
+  4. Document the exact evolution from the 24-case baseline audit (`baseline-v0`) to the 36-case robustness benchmark (`holdout-v1`) with exact ratios and denominators ($6/6$ RCA, $12/12$ CAR, $0/12$ FCR, $50/50$ CVR).
+  5. Add a "Technical Interview FAQ & System Defenses" section directly addressing Staff/Principal-level challenges.
+- **Why**: Phase 10 and Tier 1 requirement 11 require total engineering credibility. Inflated claims undermine technical authority in an interview. A transparent accounting of system mechanics, failure modes, and calibrated evaluation establishes defensibility.
+- **Alternatives considered**:
+  1. Minor wording tweaks to README: Rejected because substantive claims (e.g. 100% on everything, autonomous remediation) needed systematic correction and empirical grounding.
+  2. Leaving `.env` in git: Rejected as an unacceptable security anti-pattern.
+- **Why this approach was selected**: Aligns documentation 100% with reproducible code and benchmark reality.
+- **Tradeoffs**: None.
+
+
 
 
 
