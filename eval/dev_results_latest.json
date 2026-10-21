@@ -22,7 +22,7 @@
     },
     "avg_iterations": 2.44,
     "avg_latency_sec": 0.0014,
-    "timestamp": "2026-10-21T16:58:15.938563+00:00"
+    "timestamp": "2026-10-21T17:41:15.655112+00:00"
   },
   "results": [
     {
@@ -32,7 +32,7 @@
       "actual_status": "resolved",
       "reported_cause": "confirmed root cause: db_pool_exhaustion - max connections reached causing connection acquisition timeouts.",
       "iterations": 1,
-      "latency_sec": 0.002,
+      "latency_sec": 0.0021,
       "outcome": "PASS (Diagnosed)"
     },
     {
@@ -42,7 +42,7 @@
       "actual_status": "resolved",
       "reported_cause": "confirmed root cause: bad_deployment - invalid payment gateway endpoint url configuration after recent deployment release.",
       "iterations": 2,
-      "latency_sec": 0.0022,
+      "latency_sec": 0.002,
       "outcome": "PASS (Diagnosed)"
     },
     {
@@ -52,7 +52,7 @@
       "actual_status": "resolved",
       "reported_cause": "confirmed root cause: memory_leak - high memory usage detected (92% heap utilized) causing response latency climbing.",
       "iterations": 1,
-      "latency_sec": 0.0008,
+      "latency_sec": 0.0007,
       "outcome": "PASS (Diagnosed)"
     },
     {
@@ -72,7 +72,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0016,
+      "latency_sec": 0.0015,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -82,7 +82,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0015,
+      "latency_sec": 0.0014,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -112,7 +112,7 @@
       "actual_status": "resolved",
       "reported_cause": "confirmed root cause: memory_leak - high memory usage detected (92% heap utilized) causing response latency climbing.",
       "iterations": 1,
-      "latency_sec": 0.0007,
+      "latency_sec": 0.0006,
       "outcome": "PASS (Diagnosed)"
     },
     {
@@ -132,7 +132,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0014,
+      "latency_sec": 0.0016,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -142,7 +142,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0015,
+      "latency_sec": 0.0016,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -162,7 +162,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0014,
+      "latency_sec": 0.0015,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -182,7 +182,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0014,
+      "latency_sec": 0.0015,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -209,13 +209,13 @@
   "traces": [
     {
       "incident_id": "dev_001",
-      "timestamp": "2026-10-21T16:58:15.910101+00:00",
+      "timestamp": "2026-10-21T17:41:15.627505+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 1,
       "latency": {
-        "total_ms": 1.99,
+        "total_ms": 2.09,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -231,13 +231,13 @@
     },
     {
       "incident_id": "dev_002",
-      "timestamp": "2026-10-21T16:58:15.912740+00:00",
+      "timestamp": "2026-10-21T17:41:15.630021+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 2,
       "latency": {
-        "total_ms": 2.23,
+        "total_ms": 2.02,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -253,13 +253,13 @@
     },
     {
       "incident_id": "dev_003",
-      "timestamp": "2026-10-21T16:58:15.913968+00:00",
+      "timestamp": "2026-10-21T17:41:15.631111+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 1,
       "latency": {
-        "total_ms": 0.79,
+        "total_ms": 0.71,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -275,13 +275,13 @@
     },
     {
       "incident_id": "dev_004",
-      "timestamp": "2026-10-21T16:58:15.915821+00:00",
+      "timestamp": "2026-10-21T17:41:15.632887+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.54,
+        "total_ms": 1.47,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -297,13 +297,13 @@
     },
     {
       "incident_id": "dev_005",
-      "timestamp": "2026-10-21T16:58:15.917686+00:00",
+      "timestamp": "2026-10-21T17:41:15.634581+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.58,
+        "total_ms": 1.5,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -319,13 +319,13 @@
     },
     {
       "incident_id": "dev_006",
-      "timestamp": "2026-10-21T16:58:15.919496+00:00",
+      "timestamp": "2026-10-21T17:41:15.636186+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.45,
+        "total_ms": 1.42,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -341,13 +341,13 @@
     },
     {
       "incident_id": "dev_007",
-      "timestamp": "2026-10-21T16:58:15.920425+00:00",
+      "timestamp": "2026-10-21T17:41:15.637079+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 1,
       "latency": {
-        "total_ms": 0.64,
+        "total_ms": 0.63,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -363,13 +363,13 @@
     },
     {
       "incident_id": "dev_008",
-      "timestamp": "2026-10-21T16:58:15.921792+00:00",
+      "timestamp": "2026-10-21T17:41:15.638450+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 2,
       "latency": {
-        "total_ms": 1.1,
+        "total_ms": 1.13,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -385,13 +385,13 @@
     },
     {
       "incident_id": "dev_009",
-      "timestamp": "2026-10-21T16:58:15.922749+00:00",
+      "timestamp": "2026-10-21T17:41:15.639320+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 1,
       "latency": {
-        "total_ms": 0.69,
+        "total_ms": 0.63,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -407,13 +407,13 @@
     },
     {
       "incident_id": "dev_010",
-      "timestamp": "2026-10-21T16:58:15.924410+00:00",
+      "timestamp": "2026-10-21T17:41:15.641020+00:00",
       "status": "unresolved_conflict",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.39,
+        "total_ms": 1.43,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -429,13 +429,13 @@
     },
     {
       "incident_id": "dev_011",
-      "timestamp": "2026-10-21T16:58:15.926144+00:00",
+      "timestamp": "2026-10-21T17:41:15.642858+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.45,
+        "total_ms": 1.57,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -451,13 +451,13 @@
     },
     {
       "incident_id": "dev_012",
-      "timestamp": "2026-10-21T16:58:15.927953+00:00",
+      "timestamp": "2026-10-21T17:41:15.644709+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.49,
+        "total_ms": 1.59,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -473,13 +473,13 @@
     },
     {
       "incident_id": "dev_013",
-      "timestamp": "2026-10-21T16:58:15.929721+00:00",
+      "timestamp": "2026-10-21T17:41:15.646477+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.48,
+        "total_ms": 1.51,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -495,13 +495,13 @@
     },
     {
       "incident_id": "dev_014",
-      "timestamp": "2026-10-21T16:58:15.931415+00:00",
+      "timestamp": "2026-10-21T17:41:15.648173+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.45,
+        "total_ms": 1.46,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -517,7 +517,7 @@
     },
     {
       "incident_id": "dev_015",
-      "timestamp": "2026-10-21T16:58:15.933033+00:00",
+      "timestamp": "2026-10-21T17:41:15.649777+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
@@ -539,13 +539,13 @@
     },
     {
       "incident_id": "dev_016",
-      "timestamp": "2026-10-21T16:58:15.934608+00:00",
+      "timestamp": "2026-10-21T17:41:15.651418+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.4,
+        "total_ms": 1.46,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -561,13 +561,13 @@
     },
     {
       "incident_id": "dev_017",
-      "timestamp": "2026-10-21T16:58:15.936733+00:00",
+      "timestamp": "2026-10-21T17:41:15.653428+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.76,
+        "total_ms": 1.82,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -583,13 +583,13 @@
     },
     {
       "incident_id": "dev_018",
-      "timestamp": "2026-10-21T16:58:15.938447+00:00",
+      "timestamp": "2026-10-21T17:41:15.655004+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.4,
+        "total_ms": 1.38,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
