@@ -105,5 +105,41 @@ class TestConfidenceAndTracing(unittest.TestCase):
         self.assertAlmostEqual(trace["costs"]["estimated_usd"], 0.00045, places=5)
         self.assertEqual(trace["llm_calls"][0]["model"], "gpt-4o-mini")
 
+    def test_get_supported_hypotheses_multi_cause(self):
+        """get_supported_hypotheses extracts all hypotheses meeting or exceeding threshold."""
+        from agent.confidence import get_supported_hypotheses
+        hypos = [
+            {"id": "h1", "title": "DB Pool", "confidence_score": 0.80},
+            {"id": "h2", "title": "Bad Deployment", "confidence_score": 0.75},
+            {"id": "h3", "title": "Memory Leak", "confidence_score": 0.50}
+        ]
+        supported = get_supported_hypotheses(hypos, threshold=0.75)
+        self.assertEqual(len(supported), 2)
+        self.assertEqual(supported[0]["id"], "h1")
+        self.assertEqual(supported[1]["id"], "h2")
+
+    def test_generate_report_multi_cause(self):
+        """generate_report detects concurrent root causes and formats report accordingly."""
+        from agent.nodes import generate_report
+        state = {
+            "status": "resolved",
+            "confidence_score": 0.80,
+            "hypotheses": [
+                {"id": "db_pool_exhaustion", "title": "DB Pool", "confidence_score": 0.80},
+                {"id": "bad_deployment", "title": "Bad Deployment", "confidence_score": 0.75}
+            ],
+            "evidence": [
+                {"classification": "supports", "source": "data/logs/payment_service.log", "summary": "DB pool saturated"},
+                {"classification": "supports", "source": "deployments/payment_service/v1.2.4", "summary": "Config error"}
+            ],
+            "degraded": False
+        }
+        res = generate_report(state)
+        report = res["final_report"]
+        self.assertTrue(report["is_multi_cause"])
+        self.assertEqual(len(report["confirmed_root_causes"]), 2)
+        self.assertIn("db_pool_exhaustion", report["confirmed_root_causes"])
+        self.assertIn("bad_deployment", report["confirmed_root_causes"])
+
 if __name__ == "__main__":
     unittest.main()

@@ -145,6 +145,21 @@ This document records architectural, evaluation, and system design decisions mad
 - **Why this approach was selected**: Aligns documentation 100% with reproducible code and benchmark reality.
 - **Tradeoffs**: None.
 
+---
+
+### Record 012: GitHub Actions CI Automation & Multi-Cause Hypothesis Support
+
+- **Decision**: 
+  1. Add `.github/workflows/ci.yml` running unit tests and both 18-case benchmarks on pushes and pull requests.
+  2. Implement `get_supported_hypotheses` and multi-cause report formatting in `generate_report`, enabling concurrent root-cause identification when multiple hypotheses independently satisfy the sufficiency threshold ($\ge 0.75$).
+- **Why**: Tier 3 enhancements provide continuous integration verification against benchmark regressions and allow the platform to represent complex incidents involving concurrent failures (e.g. deployment configuration bug occurring simultaneously with database connection exhaustion).
+- **Alternatives considered**:
+  1. Forcing single root cause: Rejected because production microservices frequently experience cascading or concurrent multi-point failures.
+  2. Relying solely on manual CLI evaluation: Rejected because continuous integration ensures tests are verified on every commit.
+- **Why this approach was selected**: Clean additive extension that preserves 100% backward compatibility for single-fault scenarios.
+- **Tradeoffs**: None.
+
+
 
 
 

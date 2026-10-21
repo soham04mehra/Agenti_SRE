@@ -50,3 +50,11 @@ def evaluate_all_hypotheses(hypotheses: List[Dict[str, Any]], evidence: List[Dic
             top_hypothesis = hypo
 
     return best_score, top_hypothesis
+
+def get_supported_hypotheses(hypotheses: List[Dict[str, Any]], threshold: float = 0.75) -> List[Dict[str, Any]]:
+    """
+    Returns all hypotheses that meet or exceed the sufficiency threshold.
+    Supports multi-cause root cause analysis scenarios.
+    """
+    return [h for h in hypotheses if (h.get("confidence_score") or 0.0) >= threshold]
+

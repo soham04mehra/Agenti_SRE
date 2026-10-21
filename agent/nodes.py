@@ -458,18 +458,39 @@ def generate_report(state: IncidentState) -> Dict[str, Any]:
         }
     else:
         # "resolved" or legacy "sufficient_confidence"
-        rc_id = top_hypo.get("id") if top_hypo else "unknown"
-        report = {
-            "title": f"Root Cause Analysis - {top_hypo.get('title') if top_hypo else 'Unknown'}",
-            "status": "RESOLVED",
-            "confidence_score": best_score,
-            "root_cause_summary": f"Confirmed Root Cause: {rc_id} - {top_hypo.get('description') if top_hypo else 'System failure'}",
-            "root_cause_id": rc_id,
-            "supporting_evidence": supporting,
-            "evidence_by_source": evidence_by_source,
-            "recommended_actions": ["Execute targeted remediation action based on evidence."],
-            "degraded": degraded
-        }
+        from agent.confidence import get_supported_hypotheses
+        supported_hypos = get_supported_hypotheses(hypotheses, threshold=0.75)
+
+        if len(supported_hypos) > 1:
+            rc_ids = [h.get("id") for h in supported_hypos]
+            titles = [h.get("title") for h in supported_hypos]
+            report = {
+                "title": f"Root Cause Analysis - Concurrent Faults Detected ({', '.join(titles)})",
+                "status": "RESOLVED",
+                "is_multi_cause": True,
+                "confidence_score": best_score,
+                "root_cause_summary": f"Concurrent Root Causes Identified: {', '.join(rc_ids)}",
+                "confirmed_root_causes": rc_ids,
+                "root_cause_id": rc_ids[0],
+                "supporting_evidence": supporting,
+                "evidence_by_source": evidence_by_source,
+                "recommended_actions": ["Address concurrent faults simultaneously: review recent deployment rollback and scale connection pool."],
+                "degraded": degraded
+            }
+        else:
+            rc_id = top_hypo.get("id") if top_hypo else "unknown"
+            report = {
+                "title": f"Root Cause Analysis - {top_hypo.get('title') if top_hypo else 'Unknown'}",
+                "status": "RESOLVED",
+                "is_multi_cause": False,
+                "confidence_score": best_score,
+                "root_cause_summary": f"Confirmed Root Cause: {rc_id} - {top_hypo.get('description') if top_hypo else 'System failure'}",
+                "root_cause_id": rc_id,
+                "supporting_evidence": supporting,
+                "evidence_by_source": evidence_by_source,
+                "recommended_actions": ["Execute targeted remediation action based on evidence."],
+                "degraded": degraded
+            }
 
     return {
         "final_report": report
