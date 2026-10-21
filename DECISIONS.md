@@ -51,3 +51,15 @@ This document records architectural, evaluation, and system design decisions mad
   3. Breaking changes to old DB records: Rejected in favor of an explicit normalizer (`normalize_status`) that maps legacy `sufficient_confidence` to `resolved` on read.
 - **Why this approach was selected**: Provides deterministic routing in LangGraph, backward compatibility for database and API clients, and explicit observability into degraded diagnostic sources.
 - **Tradeoffs**: Requires maintaining report schemas for four distinct terminal outcomes rather than two.
+
+---
+
+### Record 005: 3-Level Cryptographic Citation Validation & Drift Detection
+
+- **Decision**: Implement a 3-level citation validator (`CitationValidator` in `agent/citation.py`) with SHA-256 snippet hashing for source code drift detection.
+- **Why**: Phase 4 requires evidence claims to be verifiable. In production, code and logs drift over time; static file and line references (`L66`) break when commits modify files. Storing a cryptographic hash of the evidence snippet alongside the source and line bounds ensures that citations are tamper-evident and immune to silent drift.
+- **Alternatives considered**:
+  1. Relying exclusively on line numbers: Rejected because any line insertion or deletion immediately breaks the reference.
+  2. Relying on an LLM to judge every citation: Rejected because it introduces latency, stochasticity, and token costs for what should be deterministic existence and substring checks.
+- **Why this approach was selected**: 3-level deterministic hierarchy (Level 1: Existence, Level 2: Content Match & Hash Drift, Level 3: Semantic Grounding) executes in sub-millisecond time while catching broken paths, out-of-bound lines, and drifted snippets.
+- **Tradeoffs**: Requires creating structured citation records with normalized snippets rather than free-form string URLs.
