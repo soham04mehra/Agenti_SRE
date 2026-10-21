@@ -100,4 +100,17 @@ This document records architectural, evaluation, and system design decisions mad
 - **Why this approach was selected**: Clean, sub-millisecond regex/path classification that maps citations directly to observability silos.
 - **Tradeoffs**: Citations must adhere to known path conventions or default to the `other`/`telemetry` category.
 
+---
+
+### Record 009: Failure Mode Cataloging & Post-Mortem Documentation
+
+- **Decision**: Publish `FAILURE_ANALYSIS.md` cataloging the six root vulnerabilities uncovered during repository auditing (Node 4 prompt shortcut, cross-incident telemetry bleed, warning log filtering, citation drift, binary state limitations, uncalibrated confidence claims).
+- **Why**: SRE and GenAI hiring evaluations demand technical defensibility. Presenting a sanitized project with no documented failure modes reads as junior or artificial. Documenting actual failures, root causes, and architectural remedies demonstrates senior engineering rigor.
+- **Alternatives considered**:
+  1. Hiding past flaws: Rejected because an audit specifically aims to expose and resolve technical vulnerabilities.
+  2. Generic failure writeup: Rejected in favor of exact file paths, line references, and measured performance deltas (e.g., 0% vs 100% RCA).
+- **Why this approach was selected**: Establishes transparent accountability and provides a direct reference for technical interviews.
+- **Tradeoffs**: None. Increases project documentation depth.
+
+
 
