@@ -5,7 +5,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent
-DATA_DIR = BASE_DIR / "data"
+
+# On Vercel serverless, root directory is read-only. Use /tmp/data for runtime mutable telemetry.
+if os.environ.get("VERCEL"):
+    DATA_DIR = Path("/tmp/data")
+else:
+    DATA_DIR = BASE_DIR / "data"
+
 LOGS_DIR = DATA_DIR / "logs"
 METRICS_DIR = DATA_DIR / "metrics"
 GROUND_TRUTHS_DIR = BASE_DIR / "ground_truths"

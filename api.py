@@ -10,10 +10,90 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-from config import BASE_DIR
+from config import BASE_DIR, LOGS_DIR, DATA_DIR
 from agent.graph import incident_agent_app
 from database.repository import save_incident_state, get_incident_state
 from eval.evaluate import evaluate_agent_benchmark
+from services.payment_service import PaymentService
+
+def setup_telemetry_for_request(description: str):
+    """
+    Simulates the microservice observability environment matching the requested incident alert.
+    Ensures diagnostic tools (fetch_logs, query_metrics, get_deployments) observe realistic telemetry.
+    """
+    desc_lower = description.lower()
+    service = PaymentService()
+
+    # Reset logs to avoid cross-run noise
+    log_file = LOGS_DIR / "payment_service.log"
+    if log_file.exists():
+        try:
+            with open(log_file, "w") as f:
+                f.write("")
+        except Exception:
+            pass
+
+    deploy_file = DATA_DIR / "deployments.json"
+
+    if "db" in desc_lower or "database" in desc_lower or "connection acquisition" in desc_lower or "pool" in desc_lower:
+        service.set_fault_mode("db_pool_exhaustion")
+        service.process_payment(user_id="usr_api_inv", amount=99.0)
+        try:
+            with open(deploy_file, "w") as f:
+                json.dump({"has_bad_deployment": False, "version": "v1.2.3", "config_diff": {}}, f)
+        except Exception:
+            pass
+    elif "deployment" in desc_lower or "release" in desc_lower or "gateway endpoint url" in desc_lower or "gateway config" in desc_lower or "v2.4.1" in desc_lower or "v1.2.4" in desc_lower:
+        service.set_fault_mode("bad_deployment")
+        service.process_payment(user_id="usr_api_inv", amount=49.0)
+        try:
+            with open(deploy_file, "w") as f:
+                json.dump({
+                    "has_bad_deployment": True,
+                    "version": "v1.2.4",
+                    "config_diff": {
+                        "PAYMENT_GATEWAY_URL": "http://invalid-host:9999",
+                        "DB_POOL_MAX_CONNECTIONS": 10
+                    }
+                }, f)
+        except Exception:
+            pass
+    elif "memory" in desc_lower or "heap" in desc_lower or "leak" in desc_lower:
+        service.set_fault_mode("memory_leak")
+        service.process_payment(user_id="usr_api_inv", amount=25.0)
+        try:
+            with open(deploy_file, "w") as f:
+                json.dump({"has_bad_deployment": False, "version": "v1.2.3", "config_diff": {}}, f)
+        except Exception:
+            pass
+    elif "gateway timeout" in desc_lower or "30000ms" in desc_lower or "timeout" in desc_lower:
+        if "contradict" in desc_lower or "pool" in desc_lower:
+            # Active contradictory telemetry
+            service.set_fault_mode("db_pool_exhaustion")
+        else:
+            service.set_fault_mode("downstream_timeout")
+        service.process_payment(user_id="usr_api_inv", amount=89.0)
+        try:
+            with open(deploy_file, "w") as f:
+                json.dump({"has_bad_deployment": False, "version": "v1.2.3", "config_diff": {}}, f)
+        except Exception:
+            pass
+    elif "maintenance" in desc_lower or "red herring" in desc_lower or "routine" in desc_lower:
+        service.set_fault_mode("red_herring")
+        service.process_payment(user_id="usr_api_inv", amount=15.0)
+        try:
+            with open(deploy_file, "w") as f:
+                json.dump({"has_bad_deployment": False, "version": "v1.2.3", "config_diff": {}}, f)
+        except Exception:
+            pass
+    else:
+        # Ambiguous / healthy baseline for insufficient evidence scenarios
+        service.set_fault_mode(None)
+        try:
+            with open(deploy_file, "w") as f:
+                json.dump({"has_bad_deployment": False, "version": "v1.2.3", "config_diff": {}}, f)
+        except Exception:
+            pass
 
 # Initialize FastAPI App
 app = FastAPI(
@@ -58,6 +138,9 @@ def investigate_incident(req: IncidentRequest):
         raise HTTPException(status_code=400, detail="Incident description cannot be empty.")
 
     auto_id = f"inc_{int(time.time())}"
+
+    # Setup simulated telemetry corresponding to incident request
+    setup_telemetry_for_request(req.raw_description)
 
     initial_state = {
         "incident_id": auto_id,
