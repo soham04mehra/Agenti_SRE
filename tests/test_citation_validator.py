@@ -44,7 +44,7 @@ class TestCitationValidator(unittest.TestCase):
         """Level 2 passes when snippet matches actual file content."""
         citation = {
             "source": "services/payment_service.py",
-            "line_start": 66,
+            "line_start": 76,
             "snippet": "max_connections=10 reached, connection acquisition timed out"
         }
         passed, msg = self.validator.validate_level_2_content_match(citation)
@@ -54,7 +54,7 @@ class TestCitationValidator(unittest.TestCase):
         """Level 2 fails when snippet content does not match referenced line."""
         citation = {
             "source": "services/payment_service.py",
-            "line_start": 66,
+            "line_start": 76,
             "snippet": "Kubernetes pod evicted due to disk pressure"
         }
         passed, msg = self.validator.validate_level_2_content_match(citation)
@@ -64,7 +64,7 @@ class TestCitationValidator(unittest.TestCase):
         """Level 2 detects drift when stored snippet_hash does not match modified content."""
         citation = {
             "source": "services/payment_service.py",
-            "line_start": 66,
+            "line_start": 76,
             "snippet": '"DB pool exhausted: max_connections=10 reached, connection acquisition timed out",',
             "snippet_hash": "deadbeef12345678"  # Stale hash simulating code drift
         }
@@ -99,8 +99,8 @@ class TestCitationValidator(unittest.TestCase):
             snippet="DB pool exhausted: max_connections=10 reached",
             classification="supports",
             hypothesis_id="db_pool_exhaustion",
-            summary="DB pool error at line 66",
-            line_start=66
+            summary="DB pool error at line 76",
+            line_start=76
         )
         report = self.validator.validate_all(citation)
         self.assertTrue(report["valid"])

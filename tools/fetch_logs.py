@@ -31,8 +31,10 @@ def fetch_logs(service_name: str, level_filter: str = "ERROR", limit: int = 10) 
                 continue
             try:
                 entry = json.loads(line)
-                if level_filter and entry.get("level") != level_filter.upper():
-                    continue
+                if level_filter:
+                    filter_set = {"ERROR", "WARNING", "WARN"} if level_filter.upper() in ["ERROR", "WARN", "WARNING"] else {level_filter.upper()}
+                    if entry.get("level") not in filter_set:
+                        continue
                 matching_logs.append(entry)
             except json.JSONDecodeError:
                 continue

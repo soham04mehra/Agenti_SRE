@@ -20,23 +20,33 @@ class PaymentService:
             self.metrics_tracker.update(
                 db_connections_active=10,
                 error_rate=0.95,
-                latency_ms=5000.0
+                latency_ms=5000.0,
+                memory_usage_mb=256.0,
+                dependency_latency_ms=20.0
             )
         elif self.fault_mode == "bad_deployment":
             self.metrics_tracker.update(
                 error_rate=1.0,
-                latency_ms=120.0
+                latency_ms=120.0,
+                db_connections_active=3,
+                memory_usage_mb=256.0,
+                dependency_latency_ms=20.0
             )
         elif self.fault_mode == "memory_leak":
             self.metrics_tracker.update(
                 memory_usage_mb=1950.0,
-                latency_ms=850.0
+                latency_ms=850.0,
+                db_connections_active=3,
+                error_rate=0.05,
+                dependency_latency_ms=20.0
             )
         elif self.fault_mode == "downstream_timeout":
             self.metrics_tracker.update(
                 dependency_latency_ms=30000.0,
                 latency_ms=30500.0,
-                error_rate=0.80
+                error_rate=0.80,
+                db_connections_active=3,
+                memory_usage_mb=256.0
             )
         elif self.fault_mode == "red_herring":
             # Normal healthy metrics, just a minor log warning

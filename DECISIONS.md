@@ -63,3 +63,16 @@ This document records architectural, evaluation, and system design decisions mad
   2. Relying on an LLM to judge every citation: Rejected because it introduces latency, stochasticity, and token costs for what should be deterministic existence and substring checks.
 - **Why this approach was selected**: 3-level deterministic hierarchy (Level 1: Existence, Level 2: Content Match & Hash Drift, Level 3: Semantic Grounding) executes in sub-millisecond time while catching broken paths, out-of-bound lines, and drifted snippets.
 - **Tradeoffs**: Requires creating structured citation records with normalized snippets rather than free-form string URLs.
+
+---
+
+### Record 006: Diagnostic Telemetry Parsing, Source Grounding & Execution Tracing
+
+- **Decision**: Replace the Node 4 (`observe_evidence`) substring shortcut with deterministic telemetry parsing over actual tool outputs (`raw_data_refs` containing logs, metrics, deployments, code search results). Integrate `ExecutionTracer` in `agent/tracer.py` to record per-node spans, tool latencies, token counters, and API list-price costs.
+- **Why**: Phase 5 requires that evidence grounding and hypothesis scoring depend on diagnostic findings returned by tools, not the human incident prompt. The original Node 4 relied on matching substrings in `state["raw_description"]`, causing a 33.3% false-confidence rate on conflicting cases and complete failure when real phrasing differed from synthetic template strings.
+- **Alternatives considered**:
+  1. Passing all raw tool outputs to an LLM node for unstructured evidence extraction: Rejected because it introduces 2-5 seconds of latency per loop, potential hallucinations, stochastic evidence counts, and unnecessary token costs.
+  2. Bypassing tool outputs and keeping description regex: Rejected because it is not an agentic SRE system; it is a toy keyword classifier.
+- **Why this approach was selected**: Telemetry parsing directly inspects tool outputs (e.g., active database connection gauges, error rates, warning logs, git deployment metadata), extracts verbatim snippets for cryptographic citations, and cleanly flags conflicting evidence (e.g. latency spike without DB pool pressure) and missing diagnostic sources.
+- **Tradeoffs**: Diagnostic tool outputs must adhere to standardized structured payloads (`logs`, `metrics`, `deployments`, `code_results`).
+

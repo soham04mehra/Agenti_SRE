@@ -8,14 +8,15 @@ def calculate_confidence(hypothesis: Dict[str, Any], evidence_list: List[Dict[st
       If contradicts > 0: penalty of 0.7x
       Max cap: 0.95
     """
-    hypo_id = hypothesis.get("id") or hypothesis.get("title")
+    valid_keys = {hypothesis.get("id"), hypothesis.get("alias"), hypothesis.get("title")} - {None}
 
     supports_count = 0
     contradicts_count = 0
 
     for e in evidence_list:
         # Check if evidence applies to this hypothesis
-        if e.get("hypothesis_id") == hypo_id or e.get("hypothesis") == hypo_id:
+        target_hypo = e.get("hypothesis_id") or e.get("hypothesis")
+        if target_hypo in valid_keys:
             if e.get("classification") == "supports":
                 supports_count += 1
             elif e.get("classification") == "contradicts":
