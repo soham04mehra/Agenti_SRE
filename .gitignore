@@ -12,3 +12,6 @@ venv/
 ENV/
 .idea/
 .vscode/
+data/deployments.json
+data/deployments/
+
