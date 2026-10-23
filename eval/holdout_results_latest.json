@@ -22,7 +22,7 @@
     },
     "avg_iterations": 2.44,
     "avg_latency_sec": 0.0013,
-    "timestamp": "2026-10-21T17:41:26.851868+00:00"
+    "timestamp": "2026-10-23T15:25:11.282878+00:00"
   },
   "results": [
     {
@@ -42,7 +42,7 @@
       "actual_status": "resolved",
       "reported_cause": "confirmed root cause: db_pool_exhaustion - max connections reached causing connection acquisition timeouts.",
       "iterations": 1,
-      "latency_sec": 0.0009,
+      "latency_sec": 0.0007,
       "outcome": "PASS (Diagnosed)"
     },
     {
@@ -52,7 +52,7 @@
       "actual_status": "resolved",
       "reported_cause": "confirmed root cause: bad_deployment - invalid payment gateway endpoint url configuration after recent deployment release.",
       "iterations": 2,
-      "latency_sec": 0.0016,
+      "latency_sec": 0.0013,
       "outcome": "PASS (Diagnosed)"
     },
     {
@@ -62,7 +62,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0017,
+      "latency_sec": 0.0016,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -82,7 +82,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0016,
+      "latency_sec": 0.0019,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -152,7 +152,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0015,
+      "latency_sec": 0.0017,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -162,7 +162,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0014,
+      "latency_sec": 0.0016,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -209,7 +209,7 @@
   "traces": [
     {
       "incident_id": "hold_001",
-      "timestamp": "2026-10-21T17:41:26.824590+00:00",
+      "timestamp": "2026-10-23T15:25:11.254324+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
@@ -231,13 +231,13 @@
     },
     {
       "incident_id": "hold_002",
-      "timestamp": "2026-10-21T17:41:26.825958+00:00",
+      "timestamp": "2026-10-23T15:25:11.255502+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 1,
       "latency": {
-        "total_ms": 0.95,
+        "total_ms": 0.74,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -253,13 +253,13 @@
     },
     {
       "incident_id": "hold_003",
-      "timestamp": "2026-10-21T17:41:26.827926+00:00",
+      "timestamp": "2026-10-23T15:25:11.257158+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 2,
       "latency": {
-        "total_ms": 1.6,
+        "total_ms": 1.28,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -275,13 +275,13 @@
     },
     {
       "incident_id": "hold_004",
-      "timestamp": "2026-10-21T17:41:26.829845+00:00",
+      "timestamp": "2026-10-23T15:25:11.259075+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.7,
+        "total_ms": 1.56,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -297,13 +297,13 @@
     },
     {
       "incident_id": "hold_005",
-      "timestamp": "2026-10-21T17:41:26.831675+00:00",
+      "timestamp": "2026-10-23T15:25:11.260937+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.59,
+        "total_ms": 1.58,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -319,13 +319,13 @@
     },
     {
       "incident_id": "hold_006",
-      "timestamp": "2026-10-21T17:41:26.833569+00:00",
+      "timestamp": "2026-10-23T15:25:11.263262+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.65,
+        "total_ms": 1.94,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -341,13 +341,13 @@
     },
     {
       "incident_id": "hold_007",
-      "timestamp": "2026-10-21T17:41:26.834484+00:00",
+      "timestamp": "2026-10-23T15:25:11.264389+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 1,
       "latency": {
-        "total_ms": 0.66,
+        "total_ms": 0.69,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -363,7 +363,7 @@
     },
     {
       "incident_id": "hold_008",
-      "timestamp": "2026-10-21T17:41:26.835503+00:00",
+      "timestamp": "2026-10-23T15:25:11.265414+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
@@ -385,13 +385,13 @@
     },
     {
       "incident_id": "hold_009",
-      "timestamp": "2026-10-21T17:41:26.837010+00:00",
+      "timestamp": "2026-10-23T15:25:11.266891+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 2,
       "latency": {
-        "total_ms": 1.14,
+        "total_ms": 1.12,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -407,7 +407,7 @@
     },
     {
       "incident_id": "hold_010",
-      "timestamp": "2026-10-21T17:41:26.838652+00:00",
+      "timestamp": "2026-10-23T15:25:11.268549+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
@@ -429,13 +429,13 @@
     },
     {
       "incident_id": "hold_011",
-      "timestamp": "2026-10-21T17:41:26.840359+00:00",
+      "timestamp": "2026-10-23T15:25:11.270256+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.44,
+        "total_ms": 1.42,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -451,73 +451,7 @@
     },
     {
       "incident_id": "hold_012",
-      "timestamp": "2026-10-21T17:41:26.842009+00:00",
-      "status": "insufficient_evidence",
-      "degraded": false,
-      "confidence_score": 0.5,
-      "iterations": 3,
-      "latency": {
-        "total_ms": 1.41,
-        "tool_ms": 0,
-        "llm_ms": 0,
-        "node_breakdown_ms": {}
-      },
-      "costs": {
-        "estimated_usd": 0,
-        "total_tokens": 0,
-        "label": "Estimated cost using published list pricing"
-      },
-      "spans": [],
-      "tool_calls": [],
-      "llm_calls": []
-    },
-    {
-      "incident_id": "hold_013",
-      "timestamp": "2026-10-21T17:41:26.843724+00:00",
-      "status": "insufficient_evidence",
-      "degraded": false,
-      "confidence_score": 0.5,
-      "iterations": 3,
-      "latency": {
-        "total_ms": 1.46,
-        "tool_ms": 0,
-        "llm_ms": 0,
-        "node_breakdown_ms": {}
-      },
-      "costs": {
-        "estimated_usd": 0,
-        "total_tokens": 0,
-        "label": "Estimated cost using published list pricing"
-      },
-      "spans": [],
-      "tool_calls": [],
-      "llm_calls": []
-    },
-    {
-      "incident_id": "hold_014",
-      "timestamp": "2026-10-21T17:41:26.845370+00:00",
-      "status": "insufficient_evidence",
-      "degraded": false,
-      "confidence_score": 0.5,
-      "iterations": 3,
-      "latency": {
-        "total_ms": 1.4,
-        "tool_ms": 0,
-        "llm_ms": 0,
-        "node_breakdown_ms": {}
-      },
-      "costs": {
-        "estimated_usd": 0,
-        "total_tokens": 0,
-        "label": "Estimated cost using published list pricing"
-      },
-      "spans": [],
-      "tool_calls": [],
-      "llm_calls": []
-    },
-    {
-      "incident_id": "hold_015",
-      "timestamp": "2026-10-21T17:41:26.846975+00:00",
+      "timestamp": "2026-10-23T15:25:11.271863+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
@@ -538,8 +472,74 @@
       "llm_calls": []
     },
     {
+      "incident_id": "hold_013",
+      "timestamp": "2026-10-23T15:25:11.274319+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.68,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_014",
+      "timestamp": "2026-10-23T15:25:11.276209+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.61,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
+      "incident_id": "hold_015",
+      "timestamp": "2026-10-23T15:25:11.277898+00:00",
+      "status": "insufficient_evidence",
+      "degraded": false,
+      "confidence_score": 0.5,
+      "iterations": 3,
+      "latency": {
+        "total_ms": 1.43,
+        "tool_ms": 0,
+        "llm_ms": 0,
+        "node_breakdown_ms": {}
+      },
+      "costs": {
+        "estimated_usd": 0,
+        "total_tokens": 0,
+        "label": "Estimated cost using published list pricing"
+      },
+      "spans": [],
+      "tool_calls": [],
+      "llm_calls": []
+    },
+    {
       "incident_id": "hold_016",
-      "timestamp": "2026-10-21T17:41:26.848544+00:00",
+      "timestamp": "2026-10-23T15:25:11.279615+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
@@ -561,13 +561,13 @@
     },
     {
       "incident_id": "hold_017",
-      "timestamp": "2026-10-21T17:41:26.850112+00:00",
+      "timestamp": "2026-10-23T15:25:11.281208+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.38,
+        "total_ms": 1.41,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -583,13 +583,13 @@
     },
     {
       "incident_id": "hold_018",
-      "timestamp": "2026-10-21T17:41:26.851748+00:00",
+      "timestamp": "2026-10-23T15:25:11.282784+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.45,
+        "total_ms": 1.39,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}

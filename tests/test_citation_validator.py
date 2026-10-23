@@ -128,5 +128,75 @@ class TestCitationValidator(unittest.TestCase):
         self.assertEqual(len(groups["codebase"]), 1)
         self.assertEqual(len(groups["deployments"]), 0)
 
+    def test_negative_citation_tampering_suite(self):
+        """
+        Negative Citation Validation Test Suite (Phase 5):
+        Verifies rejection of fabricated, out-of-bounds, altered, and drifted citations.
+        Reports detection rate across all injected anomalies.
+        """
+        negative_cases = [
+            {
+                "name": "fabricated_nonexistent_file",
+                "citation": {
+                    "source": "services/phantom_ghost_service.py",
+                    "snippet": "DB pool error",
+                    "classification": "supports",
+                    "hypothesis_id": "db_pool_exhaustion"
+                },
+                "expected_failure_level": "level_1_existence"
+            },
+            {
+                "name": "out_of_bounds_line_reference",
+                "citation": {
+                    "source": "services/payment_service.py",
+                    "line_start": 999999,
+                    "snippet": "some log snippet",
+                    "classification": "supports",
+                    "hypothesis_id": "db_pool_exhaustion"
+                },
+                "expected_failure_level": "level_1_existence"
+            },
+            {
+                "name": "altered_snippet_content_mismatch",
+                "citation": {
+                    "source": "services/payment_service.py",
+                    "line_start": 76,
+                    "snippet": "completely fabricated alien text not in payment service",
+                    "classification": "supports",
+                    "hypothesis_id": "db_pool_exhaustion"
+                },
+                "expected_failure_level": "level_2_content"
+            },
+            {
+                "name": "corrupted_snippet_hash_drift",
+                "citation": {
+                    "source": "services/payment_service.py",
+                    "line_start": 76,
+                    "snippet": '"DB pool exhausted: max_connections=10 reached, connection acquisition timed out",',
+                    "snippet_hash": "ffff0000deadbeef",  # Invalid/tampered hash
+                    "classification": "supports",
+                    "hypothesis_id": "db_pool_exhaustion"
+                },
+                "expected_failure_level": "level_2_content"
+            }
+        ]
+
+        injected_count = len(negative_cases)
+        detected_count = 0
+
+        for case in negative_cases:
+            report = self.validator.validate_all(case["citation"])
+            self.assertFalse(report["valid"], f"Negative case '{case['name']}' should have been rejected.")
+            failed_level = case["expected_failure_level"]
+            self.assertFalse(
+                report[failed_level]["passed"],
+                f"Negative case '{case['name']}' should fail at {failed_level}."
+            )
+            detected_count += 1
+
+        self.assertEqual(detected_count, injected_count)
+        detection_rate = detected_count / injected_count
+        self.assertEqual(detection_rate, 1.0)
+
 if __name__ == "__main__":
     unittest.main()

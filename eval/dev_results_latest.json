@@ -21,8 +21,8 @@
       "percentage": 100.0
     },
     "avg_iterations": 2.44,
-    "avg_latency_sec": 0.0014,
-    "timestamp": "2026-10-21T17:41:15.655112+00:00"
+    "avg_latency_sec": 0.0016,
+    "timestamp": "2026-10-23T15:24:13.496530+00:00"
   },
   "results": [
     {
@@ -32,7 +32,7 @@
       "actual_status": "resolved",
       "reported_cause": "confirmed root cause: db_pool_exhaustion - max connections reached causing connection acquisition timeouts.",
       "iterations": 1,
-      "latency_sec": 0.0021,
+      "latency_sec": 0.0028,
       "outcome": "PASS (Diagnosed)"
     },
     {
@@ -42,7 +42,7 @@
       "actual_status": "resolved",
       "reported_cause": "confirmed root cause: bad_deployment - invalid payment gateway endpoint url configuration after recent deployment release.",
       "iterations": 2,
-      "latency_sec": 0.002,
+      "latency_sec": 0.0025,
       "outcome": "PASS (Diagnosed)"
     },
     {
@@ -52,7 +52,7 @@
       "actual_status": "resolved",
       "reported_cause": "confirmed root cause: memory_leak - high memory usage detected (92% heap utilized) causing response latency climbing.",
       "iterations": 1,
-      "latency_sec": 0.0007,
+      "latency_sec": 0.0011,
       "outcome": "PASS (Diagnosed)"
     },
     {
@@ -62,7 +62,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0015,
+      "latency_sec": 0.0018,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -72,7 +72,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0015,
+      "latency_sec": 0.0018,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -82,7 +82,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0014,
+      "latency_sec": 0.0017,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -92,7 +92,7 @@
       "actual_status": "resolved",
       "reported_cause": "confirmed root cause: db_pool_exhaustion - max connections reached causing connection acquisition timeouts.",
       "iterations": 1,
-      "latency_sec": 0.0006,
+      "latency_sec": 0.0007,
       "outcome": "PASS (Diagnosed)"
     },
     {
@@ -102,7 +102,7 @@
       "actual_status": "resolved",
       "reported_cause": "confirmed root cause: bad_deployment - invalid payment gateway endpoint url configuration after recent deployment release.",
       "iterations": 2,
-      "latency_sec": 0.0011,
+      "latency_sec": 0.0013,
       "outcome": "PASS (Diagnosed)"
     },
     {
@@ -112,7 +112,7 @@
       "actual_status": "resolved",
       "reported_cause": "confirmed root cause: memory_leak - high memory usage detected (92% heap utilized) causing response latency climbing.",
       "iterations": 1,
-      "latency_sec": 0.0006,
+      "latency_sec": 0.0008,
       "outcome": "PASS (Diagnosed)"
     },
     {
@@ -122,7 +122,7 @@
       "actual_status": "unresolved_conflict",
       "reported_cause": "unresolved conflict: telemetry presents contradictory indicators for database connection pool exhaustion.",
       "iterations": 3,
-      "latency_sec": 0.0014,
+      "latency_sec": 0.0016,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -142,7 +142,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0016,
+      "latency_sec": 0.0017,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -152,7 +152,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0015,
+      "latency_sec": 0.002,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -172,7 +172,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0014,
+      "latency_sec": 0.0016,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -192,7 +192,7 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0018,
+      "latency_sec": 0.0022,
       "outcome": "PASS (Abstained)"
     },
     {
@@ -202,20 +202,20 @@
       "actual_status": "insufficient_evidence",
       "reported_cause": "insufficient evidence gathered to confirm a single definitive root cause.",
       "iterations": 3,
-      "latency_sec": 0.0014,
+      "latency_sec": 0.0016,
       "outcome": "PASS (Abstained)"
     }
   ],
   "traces": [
     {
       "incident_id": "dev_001",
-      "timestamp": "2026-10-21T17:41:15.627505+00:00",
+      "timestamp": "2026-10-23T15:24:13.463729+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 1,
       "latency": {
-        "total_ms": 2.09,
+        "total_ms": 2.84,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -231,13 +231,13 @@
     },
     {
       "incident_id": "dev_002",
-      "timestamp": "2026-10-21T17:41:15.630021+00:00",
+      "timestamp": "2026-10-23T15:24:13.466702+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 2,
       "latency": {
-        "total_ms": 2.02,
+        "total_ms": 2.46,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -253,13 +253,13 @@
     },
     {
       "incident_id": "dev_003",
-      "timestamp": "2026-10-21T17:41:15.631111+00:00",
+      "timestamp": "2026-10-23T15:24:13.468317+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 1,
       "latency": {
-        "total_ms": 0.71,
+        "total_ms": 1.12,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -275,13 +275,13 @@
     },
     {
       "incident_id": "dev_004",
-      "timestamp": "2026-10-21T17:41:15.632887+00:00",
+      "timestamp": "2026-10-23T15:24:13.470588+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.47,
+        "total_ms": 1.81,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -297,13 +297,13 @@
     },
     {
       "incident_id": "dev_005",
-      "timestamp": "2026-10-21T17:41:15.634581+00:00",
+      "timestamp": "2026-10-23T15:24:13.472717+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.5,
+        "total_ms": 1.79,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -319,13 +319,13 @@
     },
     {
       "incident_id": "dev_006",
-      "timestamp": "2026-10-21T17:41:15.636186+00:00",
+      "timestamp": "2026-10-23T15:24:13.474676+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.42,
+        "total_ms": 1.7,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -341,13 +341,13 @@
     },
     {
       "incident_id": "dev_007",
-      "timestamp": "2026-10-21T17:41:15.637079+00:00",
+      "timestamp": "2026-10-23T15:24:13.475707+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 1,
       "latency": {
-        "total_ms": 0.63,
+        "total_ms": 0.72,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -363,13 +363,13 @@
     },
     {
       "incident_id": "dev_008",
-      "timestamp": "2026-10-21T17:41:15.638450+00:00",
+      "timestamp": "2026-10-23T15:24:13.477261+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 2,
       "latency": {
-        "total_ms": 1.13,
+        "total_ms": 1.29,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -385,13 +385,13 @@
     },
     {
       "incident_id": "dev_009",
-      "timestamp": "2026-10-21T17:41:15.639320+00:00",
+      "timestamp": "2026-10-23T15:24:13.478328+00:00",
       "status": "resolved",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 1,
       "latency": {
-        "total_ms": 0.63,
+        "total_ms": 0.76,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -407,13 +407,13 @@
     },
     {
       "incident_id": "dev_010",
-      "timestamp": "2026-10-21T17:41:15.641020+00:00",
+      "timestamp": "2026-10-23T15:24:13.480315+00:00",
       "status": "unresolved_conflict",
       "degraded": false,
       "confidence_score": 0.75,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.43,
+        "total_ms": 1.64,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -429,13 +429,13 @@
     },
     {
       "incident_id": "dev_011",
-      "timestamp": "2026-10-21T17:41:15.642858+00:00",
+      "timestamp": "2026-10-23T15:24:13.482233+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.57,
+        "total_ms": 1.62,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -451,13 +451,13 @@
     },
     {
       "incident_id": "dev_012",
-      "timestamp": "2026-10-21T17:41:15.644709+00:00",
+      "timestamp": "2026-10-23T15:24:13.484230+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.59,
+        "total_ms": 1.69,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -473,13 +473,13 @@
     },
     {
       "incident_id": "dev_013",
-      "timestamp": "2026-10-21T17:41:15.646477+00:00",
+      "timestamp": "2026-10-23T15:24:13.486541+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.51,
+        "total_ms": 1.99,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -495,13 +495,13 @@
     },
     {
       "incident_id": "dev_014",
-      "timestamp": "2026-10-21T17:41:15.648173+00:00",
+      "timestamp": "2026-10-23T15:24:13.488393+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.46,
+        "total_ms": 1.49,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -517,13 +517,13 @@
     },
     {
       "incident_id": "dev_015",
-      "timestamp": "2026-10-21T17:41:15.649777+00:00",
+      "timestamp": "2026-10-23T15:24:13.490236+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.37,
+        "total_ms": 1.56,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -539,13 +539,13 @@
     },
     {
       "incident_id": "dev_016",
-      "timestamp": "2026-10-21T17:41:15.651418+00:00",
+      "timestamp": "2026-10-23T15:24:13.492038+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.46,
+        "total_ms": 1.52,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -561,13 +561,13 @@
     },
     {
       "incident_id": "dev_017",
-      "timestamp": "2026-10-21T17:41:15.653428+00:00",
+      "timestamp": "2026-10-23T15:24:13.494507+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.82,
+        "total_ms": 2.19,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
@@ -583,13 +583,13 @@
     },
     {
       "incident_id": "dev_018",
-      "timestamp": "2026-10-21T17:41:15.655004+00:00",
+      "timestamp": "2026-10-23T15:24:13.496380+00:00",
       "status": "insufficient_evidence",
       "degraded": false,
       "confidence_score": 0.5,
       "iterations": 3,
       "latency": {
-        "total_ms": 1.38,
+        "total_ms": 1.57,
         "tool_ms": 0,
         "llm_ms": 0,
         "node_breakdown_ms": {}
